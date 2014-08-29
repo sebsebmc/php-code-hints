@@ -1,0 +1,7 @@
+{
+    "require": {
+        "gariev/xref": "dev-master",
+        "nategood/commando": "dev-master"
+    },
+    "minimum-stability": "dev"
+}
