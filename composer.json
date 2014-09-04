@@ -1,6 +1,6 @@
 {
     "require": {
-        "gariev/xref": "dev-master",
+        "nikic/php-parser": "1.0.0-beta2",
         "nategood/commando": "dev-master"
     },
     "minimum-stability": "dev"
