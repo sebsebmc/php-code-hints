@@ -3,5 +3,8 @@
         "nikic/php-parser": "1.0.0-beta2",
         "nategood/commando": "dev-master"
     },
+    "autoload": {
+        "psr-4": {"PhpCodeHints\\": "app/"}
+    },
     "minimum-stability": "dev"
 }
