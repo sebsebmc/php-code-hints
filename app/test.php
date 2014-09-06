@@ -14,9 +14,9 @@ $traverser->addVisitor($classVisitor);
 try {
     $stmts = $parser->parse($code);
     $stmts = $traverser->traverse($stmts);
-    echo $classVisitor->class;
-    print_r($classVisitor->classMethods);
-    print_r($classVisitor->attributes);
+    foreach($classVisitor->nodeStrings as $nodeString) {
+        echo $nodeString."\n";
+    }
 } catch (PhpParser\Error $e) {
     echo 'Parse Error: ', $e->getMessage();
 }

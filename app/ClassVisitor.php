@@ -8,11 +8,7 @@ use PhpParser\NodeVisitorAbstract;
 
 class ClassVisitor extends NodeVisitorAbstract {
 
-    public $class = "";
-
-    public $classMethods = [];
-
-    public $attributes = [];
+    public $nodeStrings = [];
 
     public function beforeTraverse(array $nodes)
     {
@@ -22,11 +18,10 @@ class ClassVisitor extends NodeVisitorAbstract {
     public function enterNode(Node $node)
     {
         if ($node instanceof Node\Stmt\Class_) {
-            $this->class = $node->name;
+            $this->handleClass($node);
         }
         if ($node instanceof Node\Stmt\ClassMethod) {
-            $this->classMethods[] = $node->name;
-            $this->attrbutes = $node->getAttributes();
+            $this->handleClassMethod($node);
         }
         return null;
     }
@@ -39,6 +34,24 @@ class ClassVisitor extends NodeVisitorAbstract {
     public function afterTraverse(array $nodes)
     {
         return null;
+    }
+
+    public function handleClass(Node\Stmt\Class_ $class)
+    {
+        $theString = "";
+        if ($class->isAbstract) {
+            $theString = "abstract ";
+        } elseif ($class->isStatic) {
+            $theString = "static ";
+        } elseif ($class->isFinal) {
+            $theString = "final ";
+        }
+        $this->nodeStrings[] = $theString."class ".$class->name. "{ }";
+    }
+
+    public function handleClassMethod(Node\Stmt\ClassMethod $classMethod)
+    {
+        $this->nodeStrings[] = $classMethod->name."()";
     }
 
 }
