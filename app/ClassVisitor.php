@@ -10,6 +10,10 @@ class ClassVisitor extends NodeVisitorAbstract {
 
     public $nodeStrings = [];
 
+    public $classes = [];
+
+    public $methods = [];
+
     public function beforeTraverse(array $nodes)
     {
         return null;
@@ -19,9 +23,6 @@ class ClassVisitor extends NodeVisitorAbstract {
     {
         if ($node instanceof Node\Stmt\Class_) {
             $this->handleClass($node);
-        }
-        if ($node instanceof Node\Stmt\ClassMethod) {
-            $this->handleClassMethod($node);
         }
         return null;
     }
@@ -36,22 +37,27 @@ class ClassVisitor extends NodeVisitorAbstract {
         return null;
     }
 
-    public function handleClass(Node\Stmt\Class_ $class)
+    private function handleClass(Node\Stmt\Class_ $class)
     {
-        $theString = "";
-        if ($class->isAbstract) {
-            $theString = "abstract ";
-        } elseif ($class->isStatic) {
-            $theString = "static ";
-        } elseif ($class->isFinal) {
-            $theString = "final ";
+        $stmts = [];
+        if (!$class->isAbstract) {
+            foreach($class->stmts as $stmt) {
+                if ($stmt instanceof Node\Stmt\ClassMethod && $stmt->type == 1) {
+                    $stmts['name'] = $stmt->name;
+                    $stmts['type'] = $stmt->type;
+                    $this->classes[] = $stmts;
+                }
+                if ($stmt instanceof Node\Stmt\Property && $stmt->type == 1) {
+                    $stmts['name'] = $stmt->props[0]->name;
+                    $this->classes[] = $stmts;
+                }
+            }
         }
-        $this->nodeStrings[] = $theString."class ".$class->name. "{ }";
     }
 
-    public function handleClassMethod(Node\Stmt\ClassMethod $classMethod)
+    private function handleClassMethod(Node\Stmt\ClassMethod $classMethod)
     {
-        $this->nodeStrings[] = $classMethod->name."()";
+        $this->methods[] = $classMethod;
     }
 
 }

@@ -1,7 +1,8 @@
 {
     "require": {
         "nikic/php-parser": "1.0.0-beta2",
-        "symfony/finder": "2.6.*@dev"
+        "symfony/finder": "2.6.*@dev",
+        "egeloen/json-builder": "~1.0"
     },
     "autoload": {
         "psr-4": {"PhpCodeHints\\": "app/"}
