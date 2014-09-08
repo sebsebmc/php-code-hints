@@ -15,7 +15,7 @@ $finder       = new Finder();
 
 $finder->files()->in($argv[1])
     ->name('*.php');
-
+$start = time();
 foreach ($finder as $file) {
     $classVisitor = new ClassVisitor();
     $parser       = new Parser(new Lexer);
@@ -25,7 +25,7 @@ foreach ($finder as $file) {
     $traverser->addVisitor($classVisitor);
     $fileOut = $file->getRealPath();
     $code = file_get_contents($fileOut);
-    echo $file->getRealPath()."\n";
+    //echo $file->getRealPath()."\n";
     try {
         $stmts = $parser->parse($code);
         $stmts = $traverser->traverse($stmts);
@@ -38,5 +38,5 @@ foreach ($finder as $file) {
     } catch (PhpParser\Error $e) {
         echo 'Parse Error: ', $e->getMessage();
     }
-
 }
+echo (time() - $start);
