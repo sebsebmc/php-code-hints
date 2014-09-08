@@ -14,7 +14,7 @@ class ClassHint {
 
     public function addMethod($name, $type, $params)
     {
-        $this->methods[] = [name=>$name, type=>$type, params=>$params];
+        $this->methods[] = ['name'=>$name, 'type'=>$type, 'params'=>$params];
         return null;
     }
 
