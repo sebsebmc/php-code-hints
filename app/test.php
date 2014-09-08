@@ -14,10 +14,10 @@ $builder = new Ivory\JsonBuilder\JsonBuilder();
 try {
     $stmts = $parser->parse($code);
     $stmts = $traverser->traverse($stmts);
-    /*foreach($classVisitor->nodeStrings as $nodeString) {
-        echo $nodeString."\n";
-    }*/
-    print_r($classVisitor->classes);
+
+    $builder->setJsonEncodeOptions(JSON_PRETTY_PRINT);
+    $builder->setValues($classVisitor->classes);
+    echo $builder->build();
 
 } catch (PhpParser\Error $e) {
     echo 'Parse Error: ', $e->getMessage();

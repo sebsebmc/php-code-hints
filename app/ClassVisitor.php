@@ -5,6 +5,7 @@ namespace PhpCodeHints;
 use PhpParser\Node;
 use PhpParser\NodeVisitor;
 use PhpParser\NodeVisitorAbstract;
+use PhpCodeHints\ClassHint;
 
 class ClassVisitor extends NodeVisitorAbstract {
 
@@ -39,19 +40,20 @@ class ClassVisitor extends NodeVisitorAbstract {
 
     private function handleClass(Node\Stmt\Class_ $class)
     {
-        $stmts = [];
-        if (!$class->isAbstract) {
-            foreach($class->stmts as $stmt) {
-                if ($stmt instanceof Node\Stmt\ClassMethod && $stmt->type == 1) {
-                    $stmts['name'] = $stmt->name;
-                    $stmts['type'] = $stmt->type;
-                    $this->classes[] = $stmts;
+        $classHint = new ClassHint;
+
+        if (!$class->isAbstract()) {
+            $classHint->name = $class->name;
+            foreach ($class->stmts as $stmt) {
+                if ($stmt instanceof Node\Stmt\ClassMethod && $stmt->isPublic()) {
+                    $classHint->addMethod($stmt->name, $stmt->type, $stmt->params);
                 }
-                if ($stmt instanceof Node\Stmt\Property && $stmt->type == 1) {
-                    $stmts['name'] = $stmt->props[0]->name;
-                    $this->classes[] = $stmts;
+                if ($stmt instanceof Node\Stmt\Property && $stmt->isPublic()) {
+                    $classHint->addProperty($stmt->props[0]->name);
                 }
             }
+
+            $this->classes[] = $classHint;
         }
     }
 
