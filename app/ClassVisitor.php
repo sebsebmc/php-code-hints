@@ -44,7 +44,10 @@ class ClassVisitor extends NodeVisitorAbstract {
 
         if (!$class->isAbstract()) {
             $classHint->name = $class->name;
-            $classHint->extends = $class->extends;
+            if ($class->extends instanceof Node) {
+                $classHint->extends = $class->extends->toString();
+            }
+
             foreach ($class->stmts as $stmt) {
                 $paramNames = [];
                 if ($stmt instanceof Node\Stmt\ClassMethod && $stmt->isPublic()) {
