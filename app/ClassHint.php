@@ -12,15 +12,15 @@ class ClassHint {
 
     public $properties = [];
 
-    public function addMethod($name, $type, $params)
+    public function addMethod($name, $type, $params, $docComment)
     {
-        $this->methods[] = ['name'=>$name, 'type'=>$type, 'params'=>$params];
+        $this->methods[] = ['name'=>$name, 'type'=>$type, 'params'=>$params, 'doc'=>$docComment];
         return null;
     }
 
-    public function addProperty($name)
+    public function addProperty($name, $docComment)
     {
-        $this->properties[] = $name;
+    $this->properties[] = ['name'=>$name, 'doc'=>$docComment];
     }
 
     public function getMethods()

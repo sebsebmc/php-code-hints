@@ -3,6 +3,7 @@
 namespace PhpCodeHints;
 
 use PhpParser\Node;
+use PhpParser\Comment;
 use PhpParser\NodeVisitor;
 use PhpParser\NodeVisitorAbstract;
 use PhpCodeHints\ClassHint;
@@ -50,14 +51,23 @@ class ClassVisitor extends NodeVisitorAbstract {
 
             foreach ($class->stmts as $stmt) {
                 $paramNames = [];
+                $docComment = null;
                 if ($stmt instanceof Node\Stmt\ClassMethod && $stmt->isPublic()) {
                     foreach ($stmt->params as $param) {
                         $paramNames[] = $param->name;
                     }
-                    $classHint->addMethod($stmt->name, $stmt->type, $paramNames);
+                    $docComment = $stmt->getDocComment();
+                    if ($docComment !== null) {
+                        $docComment = $docComment->getReformattedText();
+                    }
+                    $classHint->addMethod($stmt->name, $stmt->type, $paramNames, $docComment);
                 }
                 if ($stmt instanceof Node\Stmt\Property && $stmt->isPublic()) {
-                    $classHint->addProperty($stmt->props[0]->name);
+                    $docComment = $stmt->getDocComment();
+                    if ($docComment !== null) {
+                        $docComment = $docComment->getReformattedText();
+                    }
+                    $classHint->addProperty($stmt->props[0]->name, $docComment);
                 }
             }
 
