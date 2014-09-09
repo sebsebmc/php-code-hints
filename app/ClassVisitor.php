@@ -8,13 +8,11 @@ use PhpParser\NodeVisitor;
 use PhpParser\NodeVisitorAbstract;
 use PhpCodeHints\ClassHint;
 
-class ClassVisitor extends NodeVisitorAbstract {
-
-    public $nodeStrings = [];
-
+class ClassVisitor extends NodeVisitorAbstract
+{
     public $classes = [];
 
-    public $methods = [];
+    public $functions = [];
 
     public function beforeTraverse(array $nodes)
     {
@@ -25,6 +23,8 @@ class ClassVisitor extends NodeVisitorAbstract {
     {
         if ($node instanceof Node\Stmt\Class_) {
             $this->handleClass($node);
+        } elseif ($node instanceof Node\Stmt\Function_) {
+            $this->handleFunction($node);
         }
         return null;
     }
@@ -44,6 +44,7 @@ class ClassVisitor extends NodeVisitorAbstract {
         $classHint = new ClassHint;
 
         if (!$class->isAbstract()) {
+            $classHint->stmtType = "Class";
             $classHint->name = $class->name;
             if ($class->extends instanceof Node) {
                 $classHint->extends = $class->extends->toString();
@@ -75,9 +76,13 @@ class ClassVisitor extends NodeVisitorAbstract {
         }
     }
 
-    private function handleClassMethod(Node\Stmt\ClassMethod $classMethod)
+    private function handleFunction(Node\Stmt\Function_ $function)
     {
-        $this->methods[] = $classMethod;
-    }
+        $functionHint = new FunctionHint;
 
+        $functionHint->stmtType = "Function";
+        $functionHint->name = $function->name;
+
+        $this->functions[] = $functionHint;
+    }
 }

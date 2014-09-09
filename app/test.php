@@ -18,7 +18,7 @@ $finder->files()->in($argv[1])
 $start = time();
 foreach ($finder as $file) {
     $classVisitor = new ClassVisitor();
-    $parser       = new Parser(new Lexer);
+    $parser       = new Parser(new PhpParser\Lexer\Emulative);
     $traverser    = new NodeTraverser();
 
     $traverser->addVisitor(new NodeVisitor\NameResolver);
@@ -29,9 +29,14 @@ foreach ($finder as $file) {
     try {
         $stmts = $parser->parse($code);
         $stmts = $traverser->traverse($stmts);
+        $jsonContent = "";
+//        foreach ($classVisitor->classes as $class) {
+//            $jsonContent .= json_encode($class, JSON_PRETTY_PRINT) . ",";
+//        }
 
         $builder->setJsonEncodeOptions(JSON_PRETTY_PRINT);
         $builder->setValues($classVisitor->classes);
+        //$builder->setValues($classVisitor->functions);
         $jsonContent = $builder->build();
         file_put_contents($argv[2].$file->getBasename('.php').'.json', $jsonContent);
         $builder->reset();

@@ -2,23 +2,13 @@
 
 namespace PhpCodeHints;
 
-class ClassHint
+class FunctionHint
 {
     public $stmtType = "";
 
     public $name = "";
 
-    public $extends = "";
-
-    public $methods = [];
-
     public $properties = [];
-
-    public function addMethod($name, $type, $params, $docComment)
-    {
-        $this->methods[] = ['name'=>$name, 'type'=>$type, 'params'=>$params, 'doc'=>$docComment];
-        return null;
-    }
 
     public function addProperty($name, $docComment)
     {
