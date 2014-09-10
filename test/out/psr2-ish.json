@@ -1,0 +1,49 @@
+[
+    {
+        "stmtType": "Class",
+        "name": "Foo",
+        "extends": "",
+        "methods": [
+            {
+                "name": "pubFunc1",
+                "type": 1,
+                "params": [
+                    "param1",
+                    "param2array"
+                ],
+                "doc": null
+            }
+        ],
+        "properties": [
+            {
+                "name": "propPub1",
+                "doc": null
+            },
+            {
+                "name": "propPub2",
+                "doc": null
+            },
+            {
+                "name": "propPub3",
+                "doc": null
+            }
+        ],
+        "constants": [
+            {
+                "name": "CONST1",
+                "value": "blah",
+                "doc": null
+            },
+            {
+                "name": "CONST2",
+                "value": 100,
+                "doc": null
+            },
+            {
+                "name": "CONST3",
+                "value": null,
+                "doc": null
+            }
+        ]
+    }
+]

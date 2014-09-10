@@ -7,7 +7,6 @@ use PhpParser\Parser;
 use PhpParser\NodeTraverser;
 use PhpParser\Lexer;
 use PhpParser\NodeVisitor;
-use PhpCodeHints\ClassVisitor;
 use Ivory\JsonBuilder;
 
 $builder = new JsonBuilder\JsonBuilder();
@@ -17,12 +16,12 @@ $finder->files()->in($argv[1])
     ->name('*.php');
 $start = time();
 foreach ($finder as $file) {
-    $classVisitor = new ClassVisitor();
+    $hintVisitor = new PhpCodeHints\HintVisitor();
     $parser       = new Parser(new PhpParser\Lexer\Emulative);
     $traverser    = new NodeTraverser();
 
     $traverser->addVisitor(new NodeVisitor\NameResolver);
-    $traverser->addVisitor($classVisitor);
+    $traverser->addVisitor($hintVisitor);
     $fileOut = $file->getRealPath();
     $code = file_get_contents($fileOut);
     //echo $file->getRealPath()."\n";
@@ -30,15 +29,17 @@ foreach ($finder as $file) {
         $stmts = $parser->parse($code);
         $stmts = $traverser->traverse($stmts);
         $jsonContent = "";
-//        foreach ($classVisitor->classes as $class) {
+//        foreach ($hintVisitor->classes as $class) {
 //            $jsonContent .= json_encode($class, JSON_PRETTY_PRINT) . ",";
 //        }
 
         $builder->setJsonEncodeOptions(JSON_PRETTY_PRINT);
-        $builder->setValues($classVisitor->classes);
-        //$builder->setValues($classVisitor->functions);
+        $builder->setValues($hintVisitor->fileStmts);
+        //$builder->setValues($hintVisitor->functions);
         $jsonContent = $builder->build();
-        file_put_contents($argv[2].$file->getBasename('.php').'.json', $jsonContent);
+        if ($jsonContent) {
+            file_put_contents($argv[2].$file->getBasename('.php').'.json', $jsonContent);
+        }
         $builder->reset();
     } catch (PhpParser\Error $e) {
         echo 'Parse Error: ', $e->getMessage();

@@ -14,14 +14,4 @@ class FunctionHint
     {
         $this->properties[] = ['name'=>$name, 'doc'=>$docComment];
     }
-
-    public function getMethods()
-    {
-        return $this->methods;
-    }
-
-    public function getProperties()
-    {
-        return $this->properties;
-    }
 }

@@ -8,11 +8,9 @@ use PhpParser\NodeVisitor;
 use PhpParser\NodeVisitorAbstract;
 use PhpCodeHints\ClassHint;
 
-class ClassVisitor extends NodeVisitorAbstract
+class HintVisitor extends NodeVisitorAbstract
 {
-    public $classes = [];
-
-    public $functions = [];
+    public $fileStmts = [];
 
     public function beforeTraverse(array $nodes)
     {
@@ -44,10 +42,10 @@ class ClassVisitor extends NodeVisitorAbstract
         $classHint = new ClassHint;
 
         if (!$class->isAbstract()) {
-            $classHint->stmtType = "Class";
-            $classHint->name = $class->name;
+            $classHint->setStmtType("Class");
+            $classHint->setName($class->name);
             if ($class->extends instanceof Node) {
-                $classHint->extends = $class->extends->toString();
+                $classHint->setExtends($class->extends->toString());
             }
 
             foreach ($class->stmts as $stmt) {
@@ -68,11 +66,21 @@ class ClassVisitor extends NodeVisitorAbstract
                     if ($docComment !== null) {
                         $docComment = $docComment->getReformattedText();
                     }
-                    $classHint->addProperty($stmt->props[0]->name, $docComment);
+                    $classHint->addProperty($stmt->props, $docComment);
+                }
+                if ($stmt instanceof Node\Stmt\ClassConst) {
+                    $docComment = $stmt->getDocComment();
+                    if ($docComment !== null) {
+                        $docComment = $docComment->getReformattedText();
+                    }
+                    $classHint->addConstant($stmt->consts, $docComment);
                 }
             }
 
-            $this->classes[] = $classHint;
+            $this->fileStmts[] = ['stmtType'=>$classHint->getStmtType(), 'name'=>$classHint->getName(),
+                                  'extends'=>$classHint->getExtends(),
+                                  'methods'=>$classHint->getMethods(), 'properties'=>$classHint->getProperties(),
+                                  'constants'=>$classHint->getConstants()];
         }
     }
 
@@ -83,6 +91,6 @@ class ClassVisitor extends NodeVisitorAbstract
         $functionHint->stmtType = "Function";
         $functionHint->name = $function->name;
 
-        $this->functions[] = $functionHint;
+        $this->fileStmts[] = $functionHint;
     }
 }
