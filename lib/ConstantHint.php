@@ -4,7 +4,7 @@ namespace PhpCodeHints;
 
 use PhpCodeHints\StmtHintAbstract;
 
-class FunctionHint extends StmtHintAbstract
+class ConstantHint extends StmtHintAbstract
 {
     private $extends = "";
 

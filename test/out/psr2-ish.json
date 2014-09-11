@@ -1,7 +1,11 @@
 [
     {
+        "stmtType": "Namespace",
+        "name": "Foo\\Bar"
+    },
+    {
         "stmtType": "Class",
-        "name": "Foo",
+        "name": "Baz",
         "extends": "",
         "methods": [
             {

@@ -1,0 +1,18 @@
+[
+    {
+        "stmtType": "Constant",
+        "name": null
+    },
+    {
+        "stmtType": "Constant",
+        "name": null
+    },
+    {
+        "stmtType": "Function",
+        "name": "function1"
+    },
+    {
+        "stmtType": "Function",
+        "name": "function2"
+    }
+]

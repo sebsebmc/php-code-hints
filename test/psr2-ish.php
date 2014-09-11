@@ -1,8 +1,8 @@
 <?php
 
-namespace Foo;
+namespace Foo\Bar;
 
-class Foo
+class Baz
 {
     const CONST1 = "blah";
     const CONST2 = 100,

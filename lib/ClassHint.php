@@ -6,10 +6,6 @@ use PhpCodeHints\StmtHintAbstract;
 
 class ClassHint extends StmtHintAbstract
 {
-    //private $name = "";
-
-    //private $stmtType = "";
-
     private $extends = "";
 
     private $methods = [];

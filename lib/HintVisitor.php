@@ -7,6 +7,9 @@ use PhpParser\Comment;
 use PhpParser\NodeVisitor;
 use PhpParser\NodeVisitorAbstract;
 use PhpCodeHints\ClassHint;
+use PhpCodeHints\NamespaceHint;
+use PhpCodeHints\ConstantHint;
+use PhpCodeHints\FunctionHint;
 
 class HintVisitor extends NodeVisitorAbstract
 {
@@ -19,10 +22,14 @@ class HintVisitor extends NodeVisitorAbstract
 
     public function enterNode(Node $node)
     {
-        if ($node instanceof Node\Stmt\Class_) {
+        if ($node instanceof Node\Stmt\Namespace_) {
+            $this->handleNamespace($node);
+        } elseif ($node instanceof Node\Stmt\Class_) {
             $this->handleClass($node);
         } elseif ($node instanceof Node\Stmt\Function_) {
             $this->handleFunction($node);
+        } elseif ($node instanceof Node\Stmt\Const_) {
+            $this->handleConstant($node);
         }
         return null;
     }
@@ -88,9 +95,29 @@ class HintVisitor extends NodeVisitorAbstract
     {
         $functionHint = new FunctionHint;
 
-        $functionHint->stmtType = "Function";
-        $functionHint->name = $function->name;
+        $functionHint->setStmtType("Function");
+        $functionHint->setName($function->name);
 
-        $this->fileStmts[] = $functionHint;
+        $this->fileStmts[] = ['stmtType'=>$functionHint->getStmtType(), 'name'=>$functionHint->getName()];
+    }
+
+    private function handleNamespace(Node\Stmt\Namespace_ $namespace)
+    {
+        $namespaceHint = new NamespaceHint;
+
+        $namespaceHint->setStmtType("Namespace");
+        $namespaceHint->setName($namespace->name->toString());
+
+        $this->fileStmts[] = ['stmtType'=>$namespaceHint->getStmtType(), 'name'=>$namespaceHint->getName()];
+    }
+
+    private function handleConstant(Node\Stmt\Const_ $constant)
+    {
+
+        $constantHint = new NamespaceHint;
+        $constantHint->setStmtType("Constant");
+        $constantHint->setName($constant->name);
+
+        $this->fileStmts[] = ['stmtType'=>$constantHint->getStmtType(), 'name'=>$constantHint->getName()];
     }
 }
