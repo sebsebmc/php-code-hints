@@ -1,5 +1,7 @@
 <?php
 
+define ("PHP_SESSION_DISABLED", 0);
+
 define("CONSTDEFINE1", "string 1");
 
 define("CONSTDEFINE2", 2);

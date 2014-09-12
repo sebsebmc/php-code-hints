@@ -22,6 +22,7 @@ class HintVisitor extends NodeVisitorAbstract
 
     public function enterNode(Node $node)
     {
+        $blah = "";
         if ($node instanceof Node\Stmt\Namespace_) {
             $this->handleNamespace($node);
         } elseif ($node instanceof Node\Stmt\Class_) {
@@ -30,6 +31,10 @@ class HintVisitor extends NodeVisitorAbstract
             $this->handleFunction($node);
         } elseif ($node instanceof Node\Stmt\Const_) {
             $this->handleConstant($node);
+        } elseif ($node instanceof Node\Expr\FuncCall
+                 && $node->name instanceof Node\Name
+                 && $node->name == 'define') {
+            $this->handleDefine($node);
         }
         return null;
     }
@@ -97,8 +102,10 @@ class HintVisitor extends NodeVisitorAbstract
 
         $functionHint->setStmtType("Function");
         $functionHint->setName($function->name);
+        $functionHint->setParams($function->params);
 
-        $this->fileStmts[] = ['stmtType'=>$functionHint->getStmtType(), 'name'=>$functionHint->getName()];
+        $this->fileStmts[] = ['stmtType'=>$functionHint->getStmtType(), 'name'=>$functionHint->getName(),
+                              'params'=>$functionHint->getParams()];
     }
 
     private function handleNamespace(Node\Stmt\Namespace_ $namespace)
@@ -111,13 +118,22 @@ class HintVisitor extends NodeVisitorAbstract
         $this->fileStmts[] = ['stmtType'=>$namespaceHint->getStmtType(), 'name'=>$namespaceHint->getName()];
     }
 
-    private function handleConstant(Node\Stmt\Const_ $constant)
+    private function handleConstant(Node\Stmt\Const_ $constants)
     {
+        $consts = $constants->consts;
+        foreach ($consts as $constant) {
+            $constantHint = new ConstantHint;
+            $constantHint->setStmtType("Constant");
+            $constantHint->setName($constant->name);
+            $this->fileStmts[] = ['stmtType'=>$constantHint->getStmtType(), 'name'=>$constantHint->getName()];
+        }
+    }
 
-        $constantHint = new NamespaceHint;
+    private function handleDefine(Node\Expr\FuncCall $define)
+    {
+        $constantHint = new ConstantHint;
         $constantHint->setStmtType("Constant");
-        $constantHint->setName($constant->name);
-
+        $constantHint->setName($define->args[0]->value->value);
         $this->fileStmts[] = ['stmtType'=>$constantHint->getStmtType(), 'name'=>$constantHint->getName()];
     }
 }

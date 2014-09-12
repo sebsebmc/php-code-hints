@@ -3,6 +3,7 @@
 namespace PhpCodeHints;
 
 use PhpCodeHints\StmtHintAbstract;
+use PhpParser\Node\Params;
 
 class FunctionHint extends StmtHintAbstract
 {
@@ -13,6 +14,8 @@ class FunctionHint extends StmtHintAbstract
     private $properties = [];
 
     private $constants = [];
+
+    private $params = [];
 
     public function getStmtType()
     {
@@ -34,5 +37,23 @@ class FunctionHint extends StmtHintAbstract
     {
         $this->name = $name;
         return $this;
+    }
+
+    public function getParams()
+    {
+        return $this->params;
+    }
+
+    public function setParams(array $params)
+    {
+        foreach ($params as $param) {
+            $paramName = $param->name;
+            if ($param->type instanceof PhpParser\Node\Name) {
+                $paramType = $param->type->toString();
+            } else {
+                $paramType = $param->type;
+            }
+            $this->params[] = ['name'=>$paramName, 'type'=>$paramType];
+        }
     }
 }
