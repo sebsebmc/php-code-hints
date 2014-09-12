@@ -14,6 +14,10 @@ class ClassHint extends StmtHintAbstract
 
     private $constants = [];
 
+    private $classType = 0;
+
+    private $fqn = "";
+
     public function getStmtType()
     {
         return $this->stmtType;
@@ -33,6 +37,17 @@ class ClassHint extends StmtHintAbstract
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function getFqn()
+    {
+        return $this->fqn;
+    }
+
+    public function setFqn($fqn)
+    {
+        $this->fqn = $fqn;
         return $this;
     }
 
@@ -82,5 +97,16 @@ class ClassHint extends StmtHintAbstract
     public function getConstants()
     {
         return $this->constants;
+    }
+
+    public function getClassType()
+    {
+        return $this->classType;
+    }
+
+    public function setClassType($classType)
+    {
+        $this->classType = $classType;
+        return $this;
     }
 }

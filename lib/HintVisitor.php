@@ -15,6 +15,8 @@ class HintVisitor extends NodeVisitorAbstract
 {
     public $fileStmts = [];
 
+    private $namespace = "";
+
     public function beforeTraverse(array $nodes)
     {
         return null;
@@ -56,6 +58,8 @@ class HintVisitor extends NodeVisitorAbstract
         if (!$class->isAbstract()) {
             $classHint->setStmtType("Class");
             $classHint->setName($class->name);
+            $classHint->setFqn($this->namespace . "\\" . $class->name);
+            $classHint->setClassType($class->type);
             if ($class->extends instanceof Node) {
                 $classHint->setExtends($class->extends->toString());
             }
@@ -90,7 +94,8 @@ class HintVisitor extends NodeVisitorAbstract
             }
 
             $this->fileStmts[] = ['stmtType'=>$classHint->getStmtType(), 'name'=>$classHint->getName(),
-                                  'extends'=>$classHint->getExtends(),
+                                  'fqn'=>$classHint->getFqn(),
+                                  'type'=>$classHint->getClassType(), 'extends'=>$classHint->getExtends(),
                                   'methods'=>$classHint->getMethods(), 'properties'=>$classHint->getProperties(),
                                   'constants'=>$classHint->getConstants()];
         }
@@ -110,6 +115,7 @@ class HintVisitor extends NodeVisitorAbstract
 
     private function handleNamespace(Node\Stmt\Namespace_ $namespace)
     {
+        $this->namespace = $namespace->name->toString();
         $namespaceHint = new NamespaceHint;
 
         $namespaceHint->setStmtType("Namespace");
