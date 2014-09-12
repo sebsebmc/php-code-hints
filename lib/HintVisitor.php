@@ -125,7 +125,9 @@ class HintVisitor extends NodeVisitorAbstract
             $constantHint = new ConstantHint;
             $constantHint->setStmtType("Constant");
             $constantHint->setName($constant->name);
-            $this->fileStmts[] = ['stmtType'=>$constantHint->getStmtType(), 'name'=>$constantHint->getName()];
+            $constantHint->setValue($constant->value->value);
+            $this->fileStmts[] = ['stmtType'=>$constantHint->getStmtType(), 'name'=>$constantHint->getName(),
+                                 'value'=>$constantHint->getValue()];
         }
     }
 
@@ -134,6 +136,8 @@ class HintVisitor extends NodeVisitorAbstract
         $constantHint = new ConstantHint;
         $constantHint->setStmtType("Constant");
         $constantHint->setName($define->args[0]->value->value);
-        $this->fileStmts[] = ['stmtType'=>$constantHint->getStmtType(), 'name'=>$constantHint->getName()];
+        $constantHint->setValue($define->args[1]->value->value);
+        $this->fileStmts[] = ['stmtType'=>$constantHint->getStmtType(), 'name'=>$constantHint->getName(),
+                             'value'=>$constantHint->getValue()];
     }
 }

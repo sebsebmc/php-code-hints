@@ -6,13 +6,7 @@ use PhpCodeHints\StmtHintAbstract;
 
 class ConstantHint extends StmtHintAbstract
 {
-    private $extends = "";
-
-    private $methods = [];
-
-    private $properties = [];
-
-    private $constants = [];
+    private $value;
 
     public function getStmtType()
     {
@@ -33,6 +27,17 @@ class ConstantHint extends StmtHintAbstract
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    public function setValue($value)
+    {
+        $this->value = $value;
         return $this;
     }
 }

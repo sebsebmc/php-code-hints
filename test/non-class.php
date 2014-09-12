@@ -4,7 +4,7 @@ define ("PHP_SESSION_DISABLED", 0);
 
 define("CONSTDEFINE1", "string 1");
 
-define("CONSTDEFINE2", 2);
+define("CONSTDEFINE2", 7E-10);
 
 const CONSTCONST1 = "string 1";
 
