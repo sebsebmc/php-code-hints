@@ -53,7 +53,13 @@ class FunctionHint extends StmtHintAbstract
             } else {
                 $paramType = $param->type;
             }
-            $this->params[] = ['name'=>$paramName, 'type'=>$paramType];
+            if ($param->default != NULL) {
+                $default = $param->default->value;
+            } else {
+                $default = "";
+            }
+            $this->params[] = ['name'=>$paramName, 'type'=>$paramType,
+                              'byRef'=>$param->byRef, 'default'=>$default];
         }
     }
 }

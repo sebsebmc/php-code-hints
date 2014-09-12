@@ -17,7 +17,12 @@ class Baz
     public $propPub2 = "",
         $propPub3 = "";
 
-    public function pubFunc1($param1, array $param2array)
+    public function pubFunc1($param1 = 0, array $param2array)
+    {
+        return null;
+    }
+
+    public function protFunc2($param1 = "param 1 string", array $param2array, &$paramByRef, Foo\Bar\Baz $paramTypeHint)
     {
         return null;
     }

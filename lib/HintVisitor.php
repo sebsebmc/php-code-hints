@@ -68,14 +68,11 @@ class HintVisitor extends NodeVisitorAbstract
                 $paramNames = [];
                 $docComment = null;
                 if ($stmt instanceof Node\Stmt\ClassMethod && $stmt->isPublic()) {
-                    foreach ($stmt->params as $param) {
-                        $paramNames[] = $param->name;
-                    }
                     $docComment = $stmt->getDocComment();
                     if ($docComment !== null) {
                         $docComment = $docComment->getReformattedText();
                     }
-                    $classHint->addMethod($stmt->name, $stmt->type, $paramNames, $docComment);
+                    $classHint->addMethod($stmt->name, $stmt->type, $stmt->byRef, $stmt->params, $docComment);
                 }
                 if ($stmt instanceof Node\Stmt\Property && $stmt->isPublic()) {
                     $docComment = $stmt->getDocComment();

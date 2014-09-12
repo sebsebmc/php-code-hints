@@ -62,9 +62,28 @@ class ClassHint extends StmtHintAbstract
         return $this;
     }
 
-    public function addMethod($name, $type, $params, $docComment)
+    public function addMethod($name, $type, $byRef, $params, $docComment)
     {
-        $this->methods[] = ['name'=>$name, 'type'=>$type, 'params'=>$params, 'doc'=>$docComment];
+        $paramList = [];
+        $paramType = "";
+        foreach ($params as $param) {
+            $paramName = $param->name;
+            if ($param->type instanceof PhpParser\Node\Name) {
+                $paramType = $param->type->toString();
+            } else {
+                $paramType = $param->type;
+            }
+
+            if ($param->default != NULL) {
+                $default = $param->default->value;
+            } else {
+                $default = "";
+            }
+            $paramList[] = ['name'=>$paramName, 'type'=>$paramType,
+                            'byRef'=>$param->byRef, 'default'=>$default];
+        }
+        $this->methods[] = ['name'=>$name, 'type'=>$type,
+                            'byRef'=>$byRef, 'params'=>$paramList, 'doc'=>$docComment];
         return $this;
     }
 
