@@ -11,7 +11,7 @@ const CONSTCONST1 = "string 1";
 const CONSTCONST2_1 = 21,
       CONSTCONST2_2 = 22;
 
-function function1($param1 = 0)
+function function1($param1 = 0, \foo\bar $paramTypeClass)
 {
     echo "foo";
 }

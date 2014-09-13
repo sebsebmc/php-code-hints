@@ -3,6 +3,8 @@
 namespace PhpCodeHints;
 
 use PhpCodeHints\StmtHintAbstract;
+use \PhpParser\Node\Params;
+use \PhpParser\Node\Name;
 
 class ClassHint extends StmtHintAbstract
 {
@@ -68,7 +70,8 @@ class ClassHint extends StmtHintAbstract
         $paramType = "";
         foreach ($params as $param) {
             $paramName = $param->name;
-            if ($param->type instanceof PhpParser\Node\Name) {
+
+            if ($param->type instanceof \PhpParser\Node\Name) {
                 $paramType = $param->type->toString();
             } else {
                 $paramType = $param->type;
