@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../vendor/autoload.php";
+require_once __DIR__ . "/vendor/autoload.php";
 
 use Symfony\Component\Finder\Finder;
 use PhpParser\Parser;
@@ -41,4 +41,4 @@ foreach ($finder as $file) {
         echo 'Parse Error: ', $e->getMessage();
     }
 }
-echo (time() - $start);
+echo "\nGenerated json hint files in: " . (time() - $start) . "secs\n";
