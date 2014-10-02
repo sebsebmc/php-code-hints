@@ -3,6 +3,8 @@
 require_once __DIR__ . "/vendor/autoload.php";
 
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use PhpParser\Parser;
 use PhpParser\NodeTraverser;
 use PhpParser\Lexer;
@@ -11,6 +13,7 @@ use Ivory\JsonBuilder;
 
 $builder = new JsonBuilder\JsonBuilder();
 $finder       = new Finder();
+$fs = new Filesystem();
 
 $finder->files()->in($argv[1])
     ->name('*.php');
@@ -24,7 +27,7 @@ foreach ($finder as $file) {
     $traverser->addVisitor($hintVisitor);
     $fileOut = $file->getRealPath();
     $code = file_get_contents($fileOut);
-    echo $file->getRealPath()."\n";
+    echo $file->getRelativePath()."\n";
     try {
         $stmts = $parser->parse($code);
         $stmts = $traverser->traverse($stmts);
@@ -34,7 +37,13 @@ foreach ($finder as $file) {
         $builder->setValues($hintVisitor->fileStmts);
 
         $jsonContent = $builder->build();
-        file_put_contents($argv[2].$file->getBasename('.php').'.json', $jsonContent);
+        if (!$fs->exists($argv[2].$file->getRelativePath())) {
+            //echo "mkdir".$argv[2].$file->getRelativePath();
+            $fs->mkdir($argv[2].$file->getRelativePath());
+        }
+        $outpath = $argv[2].$file->getRelativePath().$file->getBasename('.php').'.json';
+        //echo "outpath: ".$outpath;
+        file_put_contents($argv[2].$file->getRelativePath().$file->getBasename('.php').'.json', $jsonContent);
 
         $builder->reset();
     } catch (PhpParser\Error $e) {
