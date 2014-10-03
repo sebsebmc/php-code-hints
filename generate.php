@@ -11,23 +11,27 @@ use PhpParser\Lexer;
 use PhpParser\NodeVisitor;
 use Ivory\JsonBuilder;
 
-$builder = new JsonBuilder\JsonBuilder();
-$finder       = new Finder();
-$fs = new Filesystem();
+$builder        = new JsonBuilder\JsonBuilder();
+$finder         = new Finder();
+$fs             = new Filesystem();
 
-$finder->files()->in($argv[1])
+$sourcePath = $argv[1];
+$targetPath = $argv[2];
+
+$finder->files()->in($sourcePath)
     ->name('*.php');
+
 $start = time();
+
 foreach ($finder as $file) {
-    $hintVisitor = new PhpCodeHints\HintVisitor();
+    $hintVisitor  = new PhpCodeHints\HintVisitor();
     $parser       = new Parser(new PhpParser\Lexer);
     $traverser    = new NodeTraverser();
 
     $traverser->addVisitor(new NodeVisitor\NameResolver);
     $traverser->addVisitor($hintVisitor);
-    $fileOut = $file->getRealPath();
-    $code = file_get_contents($fileOut);
-    echo $file->getRelativePath()."\n";
+
+    $code = $file->getContents();
     try {
         $stmts = $parser->parse($code);
         $stmts = $traverser->traverse($stmts);
@@ -35,15 +39,15 @@ foreach ($finder as $file) {
 
         $builder->setJsonEncodeOptions(JSON_PRETTY_PRINT);
         $builder->setValues($hintVisitor->fileStmts);
-
         $jsonContent = $builder->build();
-        if (!$fs->exists($argv[2].$file->getRelativePath())) {
-            //echo "mkdir".$argv[2].$file->getRelativePath();
-            $fs->mkdir($argv[2].$file->getRelativePath());
+
+        if (!$fs->exists($targetPath.$file->getRelativePath())) {
+            echo "created directory: ".$targetPath.$file->getRelativePath()."\n";
+            $fs->mkdir($targetPath.$file->getRelativePath());
         }
-        $outpath = $argv[2].$file->getRelativePath().$file->getBasename('.php').'.json';
-        //echo "outpath: ".$outpath;
-        file_put_contents($argv[2].$file->getRelativePath().$file->getBasename('.php').'.json', $jsonContent);
+        $outputFilename = $targetPath.$file->getRelativePath()."/".$file->getBasename('.php').'.json';
+        file_put_contents($outputFilename, $jsonContent);
+        echo "wrote file: ".$outputFilename."\n";
 
         $builder->reset();
     } catch (PhpParser\Error $e) {
