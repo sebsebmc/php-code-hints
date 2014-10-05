@@ -79,7 +79,7 @@ class HintVisitor extends NodeVisitorAbstract
                     if ($docComment !== null) {
                         $docComment = $docComment->getReformattedText();
                     }
-                    $classHint->addProperty($stmt->props, $docComment);
+                    $classHint->addProperty($stmt->props, $stmt->type, $docComment);
                 }
                 if ($stmt instanceof Node\Stmt\ClassConst) {
                     $docComment = $stmt->getDocComment();
@@ -92,7 +92,7 @@ class HintVisitor extends NodeVisitorAbstract
 
             $this->fileStmts[] = ['stmtType'=>$classHint->getStmtType(), 'name'=>$classHint->getName(),
                                   'fqn'=>$classHint->getFqn(),
-                                  'type'=>$classHint->getClassType(), 'extends'=>$classHint->getExtends(),
+                                  'type'=>$classHint->getClassType(), 'extendsClass'=>$classHint->getExtends(),
                                   'methods'=>$classHint->getMethods(), 'properties'=>$classHint->getProperties(),
                                   'constants'=>$classHint->getConstants()];
         }

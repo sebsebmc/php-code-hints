@@ -76,7 +76,7 @@ class ClassHint extends StmtHintAbstract
                 $paramType = $param->type;
             }
 
-            if ($param->default != NULL) {
+            if ($param->default != null) {
                 $default = $param->default->value;
             } else {
                 $default = "";
@@ -89,10 +89,10 @@ class ClassHint extends StmtHintAbstract
         return $this;
     }
 
-    public function addProperty(array $props, $docComment)
+    public function addProperty(array $props, $type, $docComment)
     {
         foreach ($props as $prop) {
-            $this->properties[] = ['name'=>$prop->name, 'doc'=>$docComment];
+            $this->properties[] = ['name'=>$prop->name, 'type'=>$type, 'doc'=>$docComment];
         }
         return $this;
     }
