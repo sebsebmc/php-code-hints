@@ -1,6 +1,6 @@
 <?php
 
-// Start of fileinfo v.1.0.5-dev
+// Start of fileinfo v.1.0.5
 
 class finfo  {
 
@@ -186,5 +186,5 @@ define ('FILEINFO_PRESERVE_ATIME', 128);
  */
 define ('FILEINFO_RAW', 256);
 
-// End of fileinfo v.1.0.5-dev
+// End of fileinfo v.1.0.5
 ?>

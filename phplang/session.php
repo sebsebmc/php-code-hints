@@ -95,7 +95,7 @@ interface SessionIdInterface  {
  * the current internal PHP session save handler by inheritance. There are six methods which
  * wrap the six internal session save handler callbacks (<i>open</i>, <i>close</i>,
  * <i>read</i>, <i>write</i>, <i>destroy</i> and <i>gc</i>).
- * By default, this class will wrap whatever internal save handler is set as as defined by the
+ * By default, this class will wrap whatever internal save handler is set as defined by the
  * session.save_handler configuration directive which is usually
  * <i>files</i> by default.
  * Other internal session save handlers are provided by PHP extensions such as SQLite (as <i>sqlite</i>),
@@ -456,6 +456,10 @@ function session_get_cookie_params () {}
  * @return void No value is returned.
  */
 function session_write_close () {}
+
+function session_abort () {}
+
+function session_reset () {}
 
 /**
  * (PHP &gt;=5.4.0)<br/>

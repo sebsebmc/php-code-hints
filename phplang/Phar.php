@@ -1,6 +1,6 @@
 <?php
 
-// Start of Phar v.2.0.1
+// Start of Phar v.2.0.2
 
 /**
  * The PharException class provides a phar-specific exception class
@@ -184,7 +184,7 @@ class Phar extends RecursiveDirectoryIterator implements RecursiveIterator, Seek
 
 	/**
 	 * (Unknown)<br/>
-	 * Add a file from the filesystem to the phar archive
+	 * Add a file from a string to the phar archive
 	 * @link http://php.net/manual/en/phar.addfromstring.php
 	 * @param string $localname <p>
 	 * Path that the file will be stored in the archive.
@@ -1236,7 +1236,7 @@ class Phar extends RecursiveDirectoryIterator implements RecursiveIterator, Seek
 	 * </p>
 	 * @return SplFileObject The opened file as an <b>SplFileObject</b> object.
 	 */
-	public function openFile ($open_mode = 'r', $use_include_path = false, $context = null) {}
+	public function openFile ($open_mode = "r", $use_include_path = false, $context = null) {}
 
 	/**
 	 * (PHP 5 &gt;= 5.1.2)<br/>
@@ -2084,7 +2084,7 @@ class PharData extends RecursiveDirectoryIterator implements RecursiveIterator, 
 	 * </p>
 	 * @return SplFileObject The opened file as an <b>SplFileObject</b> object.
 	 */
-	public function openFile ($open_mode = 'r', $use_include_path = false, $context = null) {}
+	public function openFile ($open_mode = "r", $use_include_path = false, $context = null) {}
 
 	/**
 	 * (PHP 5 &gt;= 5.1.2)<br/>
@@ -2471,7 +2471,7 @@ class PharFileInfo extends SplFileInfo  {
 	 * </p>
 	 * @return SplFileObject The opened file as an <b>SplFileObject</b> object.
 	 */
-	public function openFile ($open_mode = 'r', $use_include_path = false, $context = null) {}
+	public function openFile ($open_mode = "r", $use_include_path = false, $context = null) {}
 
 	/**
 	 * (PHP 5 &gt;= 5.1.2)<br/>
@@ -2506,5 +2506,5 @@ class PharFileInfo extends SplFileInfo  {
 	public function __toString () {}
 
 }
-// End of Phar v.2.0.1
+// End of Phar v.2.0.2
 ?>

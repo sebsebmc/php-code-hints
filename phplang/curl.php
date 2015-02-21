@@ -311,6 +311,15 @@ function curl_version ($age = 'CURLVERSION_NOW') {}
  * </td>
  * </tr>
  * <tr valign="top">
+ * <b>CURLOPT_TCP_NODELAY</b></td>
+ * Pass a long specifying whether the TCP_NODELAY option is to be set or
+ * cleared (1 = set, 0 = clear). The option is cleared by default.
+ * </td>
+ * Available since PHP 5.2.1 for versions compiled with libcurl 7.11.2 or
+ * greater.
+ * </td>
+ * </tr>
+ * <tr valign="top">
  * <b>CURLOPT_FTPASCII</b></td>
  * An alias of
  * <b>CURLOPT_TRANSFERTEXT</b>. Use that instead.
@@ -421,6 +430,18 @@ function curl_version ($age = 'CURLVERSION_NOW') {}
  * </td>
  * </tr>
  * <tr valign="top">
+ * <b>CURLOPT_SAFE_UPLOAD</b></td>
+ * <b>TRUE</b> to disable support for the @ prefix for
+ * uploading files in <b>CURLOPT_POSTFIELDS</b>, which
+ * means that values starting with @ can be safely
+ * passed as fields. <b>CURLFile</b> may be used for
+ * uploads instead.
+ * </td>
+ * Added in PHP 5.5.0. Currenly <b>FALSE</b> by default, but this is likely
+ * to be changed in a future version of PHP.
+ * </td>
+ * </tr>
+ * <tr valign="top">
  * <b>CURLOPT_SSL_VERIFYPEER</b></td>
  * <b>FALSE</b> to stop cURL from verifying the peer's
  * certificate. Alternate certificates to verify against can be
@@ -483,12 +504,13 @@ function curl_version ($age = 'CURLVERSION_NOW') {}
  * </tr>
  * <tr valign="top">
  * <b>CURLOPT_CLOSEPOLICY</b></td>
- * Either
- * <i>CURLCLOSEPOLICY_LEAST_RECENTLY_USED</i> or
- * <i>CURLCLOSEPOLICY_OLDEST</i>.
- * There are three other CURLCLOSEPOLICY_
- * constants, but cURL does not support them yet.
+ * One of the <b>CURLCLOSEPOLICY_*</b> values.
+ * <p>
+ * This option is deprecated, as it was never implemented in cURL and
+ * never had any effect.
+ * </p>
  * </td>
+ * Removed in PHP 5.6.0.
  * </td>
  * </tr>
  * <tr valign="top">
@@ -931,7 +953,10 @@ function curl_version ($age = 'CURLVERSION_NOW') {}
  * As of PHP 5.2.0, <i>value</i> must be an array if
  * files are passed to this option with the @ prefix.
  * As of PHP 5.5.0, the @ prefix is deprecated and
- * files can be sent using <b>CURLFile</b>.
+ * files can be sent using <b>CURLFile</b>. The
+ * @ prefix can be disabled for safe passing of
+ * values beginning with @ by setting the
+ * <b>CURLOPT_SAFE_UPLOAD</b> option to <b>TRUE</b>.
  * </td>
  * </td>
  * </tr>
@@ -1654,7 +1679,6 @@ define ('CURLOPT_BINARYTRANSFER', 19914);
 define ('CURLOPT_BUFFERSIZE', 98);
 define ('CURLOPT_CAINFO', 10065);
 define ('CURLOPT_CAPATH', 10097);
-define ('CURLOPT_CLOSEPOLICY', 72);
 define ('CURLOPT_CONNECTTIMEOUT', 78);
 define ('CURLOPT_COOKIE', 10022);
 define ('CURLOPT_COOKIEFILE', 10031);
@@ -1764,11 +1788,6 @@ define ('CURLOPT_USERPWD', 10005);
 define ('CURLOPT_VERBOSE', 41);
 define ('CURLOPT_WRITEFUNCTION', 20011);
 define ('CURLOPT_WRITEHEADER', 10029);
-define ('CURLCLOSEPOLICY_CALLBACK', 5);
-define ('CURLCLOSEPOLICY_LEAST_RECENTLY_USED', 2);
-define ('CURLCLOSEPOLICY_LEAST_TRAFFIC', 3);
-define ('CURLCLOSEPOLICY_OLDEST', 1);
-define ('CURLCLOSEPOLICY_SLOWEST', 4);
 define ('CURLE_ABORTED_BY_CALLBACK', 42);
 define ('CURLE_BAD_CALLING_ORDER', 44);
 define ('CURLE_BAD_CONTENT_ENCODING', 61);
@@ -1849,7 +1868,7 @@ define ('CURLINFO_FILETIME', 2097166);
 define ('CURLINFO_HEADER_OUT', 2);
 define ('CURLINFO_HEADER_SIZE', 2097163);
 define ('CURLINFO_HTTP_CODE', 2097154);
-define ('CURLINFO_LASTONE', 42);
+define ('CURLINFO_LASTONE', 43);
 define ('CURLINFO_NAMELOOKUP_TIME', 3145732);
 define ('CURLINFO_PRETRANSFER_TIME', 3145734);
 
@@ -2053,11 +2072,41 @@ define ('CURLUSESSL_NONE', 0);
 define ('CURLUSESSL_TRY', 1);
 define ('CURLOPT_SSH_HOST_PUBLIC_KEY_MD5', 10162);
 define ('CURLOPT_PROXY_TRANSFER_MODE', 166);
+
+/**
+ * Available since PHP 5.5.0 and cURL 7.18.0.
+ * @link http://php.net/manual/en/curl.constants.php
+ */
 define ('CURLPAUSE_ALL', 5);
+
+/**
+ * Available since PHP 5.5.0 and cURL 7.18.0.
+ * @link http://php.net/manual/en/curl.constants.php
+ */
 define ('CURLPAUSE_CONT', 0);
+
+/**
+ * Available since PHP 5.5.0 and cURL 7.18.0.
+ * @link http://php.net/manual/en/curl.constants.php
+ */
 define ('CURLPAUSE_RECV', 1);
+
+/**
+ * Available since PHP 5.5.0 and cURL 7.18.0.
+ * @link http://php.net/manual/en/curl.constants.php
+ */
 define ('CURLPAUSE_RECV_CONT', 0);
+
+/**
+ * Available since PHP 5.5.0 and cURL 7.18.0.
+ * @link http://php.net/manual/en/curl.constants.php
+ */
 define ('CURLPAUSE_SEND', 4);
+
+/**
+ * Available since PHP 5.5.0 and cURL 7.18.0.
+ * @link http://php.net/manual/en/curl.constants.php
+ */
 define ('CURLPAUSE_SEND_CONT', 0);
 define ('CURL_READFUNC_PAUSE', 268435457);
 define ('CURL_WRITEFUNC_PAUSE', 268435457);

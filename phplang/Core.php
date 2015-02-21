@@ -1,6 +1,6 @@
 <?php
 
-// Start of Core v.5.4.9-4ubuntu2.2
+// Start of Core v.5.6.0RC2
 
 class stdClass  {
 }
@@ -165,137 +165,105 @@ interface Serializable  {
 }
 
 /**
- * Base class for all exceptions.
- *
- * @link http://php.net/class.exception.php
- * @since 5.1.0
+ * <b>Exception</b> is the base class for
+ * all Exceptions.
+ * @link http://php.net/manual/en/class.exception.php
  */
 class Exception  {
+	protected $message;
+	private $string;
+	protected $code;
+	protected $file;
+	protected $line;
+	private $trace;
+	private $previous;
 
 
-  // ------------------------------------------------------------------------------------------------------------------- Properties
+	/**
+	 * (PHP 5 &gt;= 5.1.0)<br/>
+	 * Clone the exception
+	 * @link http://php.net/manual/en/exception.clone.php
+	 * @return void No value is returned.
+	 */
+	final private function __clone () {}
 
+	/**
+	 * (PHP 5 &gt;= 5.1.0)<br/>
+	 * Construct the exception
+	 * @link http://php.net/manual/en/exception.construct.php
+	 * @param $message [optional]
+	 * @param $code [optional]
+	 * @param $previous [optional]
+	 */
+	public function __construct ($message, $code, $previous) {}
 
-  /**
-   * The exception code.
-   *
-   * @var integer
-   */
-  protected $code;
+	/**
+	 * (PHP 5 &gt;= 5.1.0)<br/>
+	 * Gets the Exception message
+	 * @link http://php.net/manual/en/exception.getmessage.php
+	 * @return string the Exception message as a string.
+	 */
+	final public function getMessage () {}
 
-  /**
-   * The filename where the exception was created.
-   *
-   * @var string
-   */
-  protected $file;
+	/**
+	 * (PHP 5 &gt;= 5.1.0)<br/>
+	 * Gets the Exception code
+	 * @link http://php.net/manual/en/exception.getcode.php
+	 * @return mixed the exception code as integer in
+	 * <b>Exception</b> but possibly as other type in
+	 * <b>Exception</b> descendants (for example as
+	 * string in <b>PDOException</b>).
+	 */
+	final public function getCode () {}
 
-  /**
-   * The exception message.
-   *
-   * @var string
-   */
-  protected $message;
+	/**
+	 * (PHP 5 &gt;= 5.1.0)<br/>
+	 * Gets the file in which the exception occurred
+	 * @link http://php.net/manual/en/exception.getfile.php
+	 * @return string the filename in which the exception was created.
+	 */
+	final public function getFile () {}
 
-  /**
-   * The line where the exception was created.
-   *
-   * @var integer
-   */
-  protected $line;
+	/**
+	 * (PHP 5 &gt;= 5.1.0)<br/>
+	 * Gets the line in which the exception occurred
+	 * @link http://php.net/manual/en/exception.getline.php
+	 * @return int the line number where the exception was created.
+	 */
+	final public function getLine () {}
 
+	/**
+	 * (PHP 5 &gt;= 5.1.0)<br/>
+	 * Gets the stack trace
+	 * @link http://php.net/manual/en/exception.gettrace.php
+	 * @return array the Exception stack trace as an array.
+	 */
+	final public function getTrace () {}
 
-  // ------------------------------------------------------------------------------------------------------------------- Magic Methods
+	/**
+	 * (PHP 5 &gt;= 5.3.0)<br/>
+	 * Returns previous Exception
+	 * @link http://php.net/manual/en/exception.getprevious.php
+	 * @return Exception the previous <b>Exception</b> if available
+	 * or <b>NULL</b> otherwise.
+	 */
+	final public function getPrevious () {}
 
+	/**
+	 * (PHP 5 &gt;= 5.1.0)<br/>
+	 * Gets the stack trace as a string
+	 * @link http://php.net/manual/en/exception.gettraceasstring.php
+	 * @return string the Exception stack trace as a string.
+	 */
+	final public function getTraceAsString () {}
 
-  /**
-   * Clone the exception.
-   *
-   * @link http://php.net/exception.clone.php
-   */
-  private final function __clone() {}
-
-  /**
-   * Instantiate new exception.
-   *
-   * @link http://php.net/exception.construct.php
-   * @param string $message [optional]
-   *   The exception's message.
-   * @param integer $code [optional]
-   *   The exception's code.
-   * @param \Exception $previous [optional]
-   *   The previous exception used for exception chaining.
-   */
-  public function __construct($message = "", $code = 0, \Exception $previous = null) {}
-
-  /**
-   * Get the string representation of the exception.
-   *
-   * @link http://php.net/exception.tostring.php
-   * @return string The string representation of the exception.
-   */
-  public function __toString() {}
-
-
-  // ------------------------------------------------------------------------------------------------------------------- Methods
-
-
-  /**
-   * Get the exception code.
-   *
-   * @link http://php.net/exception.getcode.php
-   * @return integer The exception code.
-   */
-  public final function getCode() {}
-
-  /**
-   * Get the filename in which the exception occurred.
-   *
-   * @link http://php.net/exception.getfile.php
-   * @return string The filename in which the exception occurred.
-   */
-  public final function getFile() {}
-
-  /**
-   * Get the exception message.
-   *
-   * @link http://php.net/exception.getmessage.php
-   * @return string The Exception message.
-   */
-  public final function getMessage() {}
-
-  /**
-   * Get the line number in which the exception occurred.
-   *
-   * @link http://php.net/exception.getline.php
-   * @return integer The line number in which the exception occurred.
-   */
-  public final function getLine() {}
-
-  /**
-   * Returns previous exception.
-   *
-   * @link http://php.net/exception.getprevious.php
-   * @return \Exception The previous exception if available, or <code>NULL</code> otherwise.
-   * @since 5.3.0
-   */
-  public final function getPrevious() {}
-
-  /**
-   * Get the stack trace.
-   *
-   * @link http://php.net/exception.gettrace.php
-   * @return array The stack trace.
-   */
-  public final function getTrace() {}
-
-  /**
-   * Get the stack trace as string.
-   *
-   * @link http://php.net/exception.gettraceasstring.php
-   * @return string The stack trace as string.
-   */
-  public final function getTraceAsString() {}
+	/**
+	 * (PHP 5 &gt;= 5.1.0)<br/>
+	 * String representation of the exception
+	 * @link http://php.net/manual/en/exception.tostring.php
+	 * @return string the string representation of the exception.
+	 */
+	public function __toString () {}
 
 }
 
@@ -467,23 +435,81 @@ final class Closure  {
 }
 
 /**
+ * <b>Generator</b> objects are returned from generators.
+ * @method mixed throw(Exception $exception) (PHP 5 &gt;= 5.5.0)<br/>Throw an exception into the generator
+ * @link http://php.net/manual/en/class.generator.php
+ */
+final class Generator implements Iterator, Traversable {
+
+	/**
+	 * (PHP 5 &gt;= 5.5.0)<br/>
+	 * Rewind the iterator
+	 * @link http://php.net/manual/en/generator.rewind.php
+	 * @return void No value is returned.
+	 */
+	public function rewind () {}
+
+	/**
+	 * (PHP 5 &gt;= 5.5.0)<br/>
+	 * Check if the iterator has been closed
+	 * @link http://php.net/manual/en/generator.valid.php
+	 * @return bool <b>FALSE</b> if the iterator has been closed. Otherwise returns <b>TRUE</b>.
+	 */
+	public function valid () {}
+
+	/**
+	 * (PHP 5 &gt;= 5.5.0)<br/>
+	 * Get the yielded value
+	 * @link http://php.net/manual/en/generator.current.php
+	 * @return mixed the yielded value.
+	 */
+	public function current () {}
+
+	/**
+	 * (PHP 5 &gt;= 5.5.0)<br/>
+	 * Get the yielded key
+	 * @link http://php.net/manual/en/generator.key.php
+	 * @return mixed the yielded key.
+	 */
+	public function key () {}
+
+	/**
+	 * (PHP 5 &gt;= 5.5.0)<br/>
+	 * Resume execution of the generator
+	 * @link http://php.net/manual/en/generator.next.php
+	 * @return void No value is returned.
+	 */
+	public function next () {}
+
+	/**
+	 * (PHP 5 &gt;= 5.5.0)<br/>
+	 * Send a value to the generator
+	 * @link http://php.net/manual/en/generator.send.php
+	 * @param mixed $value <p>
+	 * Value to send into the generator. This value will be the return value of the
+	 * yield expression the generator is currently at.
+	 * </p>
+	 * @return mixed the yielded value.
+	 */
+	public function send ($value) {}
+
+	/**
+	 * (PHP 5 &gt;= 5.5.0)<br/>
+	 * Serialize callback
+	 * @link http://php.net/manual/en/generator.wakeup.php
+	 * @return void No value is returned.
+	 */
+	public function __wakeup () {}
+
+}
+
+/**
  * (PHP 4, PHP 5)<br/>
  * Gets the version of the current Zend engine
  * @link http://php.net/manual/en/function.zend-version.php
  * @return string the Zend Engine version number, as a string.
  */
 function zend_version () {}
-
-/**
- * Flushes the response data to the client.
- *
- * This function flushes the response data to the client and finishes the request. This allows for time consuming tasks
- * to be performed without leaving the connection to the client open.
- *
- * @return boolean
- *   <code>TRUE</code> on success or <code>FALSE</code> on failure.
- */
-function fastcgi_finish_request() {}
 
 /**
  * (PHP 4, PHP 5)<br/>
@@ -828,7 +854,7 @@ function function_exists ($function_name) {}
  * The alias name for the class.
  * </p>
  * @param bool $autoload [optional] <p>
- * Whether do autoload if the original class is not found.
+ * Whether to autoload if the original class is not found.
  * </p>
  * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure.
  */
@@ -1011,14 +1037,13 @@ function restore_error_handler () {}
  * @link http://php.net/manual/en/function.set-exception-handler.php
  * @param callable $exception_handler <p>
  * Name of the function to be called when an uncaught exception occurs.
- * This function must be defined before calling
- * <b>set_exception_handler</b>. This handler function
+ * This handler function
  * needs to accept one parameter, which will be the exception object that
  * was thrown. This is the handler signature:
  * </p>
  * <p>
  * void<b>handler</b>
- * <b>Exception<i>$ex</i></b>
+ * <b>Exception<i>ex</i></b>
  * </p>
  * <p>
  * <b>NULL</b> may be passed instead, to reset this handler to its default state.
@@ -1234,7 +1259,8 @@ function get_extension_funcs ($module_name) {}
  * )
  * </pre>
  * </p>
- * @return array
+ * @return array an array of constant name => constant value array, optionally
+ * groupped by extension name registering the constant.
  */
 function get_defined_constants ($categorize = false) {}
 
@@ -1522,23 +1548,23 @@ define ('DEBUG_BACKTRACE_PROVIDE_OBJECT', 1);
 define ('DEBUG_BACKTRACE_IGNORE_ARGS', 2);
 define ('TRUE', true);
 define ('FALSE', false);
-define ('NULL', null);
 define ('ZEND_THREAD_SAFE', false);
 define ('ZEND_DEBUG_BUILD', false);
-define ('PHP_VERSION', "5.4.9-4ubuntu2.2");
+define ('NULL', null);
+define ('PHP_VERSION', "5.6.0RC2");
 define ('PHP_MAJOR_VERSION', 5);
-define ('PHP_MINOR_VERSION', 4);
-define ('PHP_RELEASE_VERSION', 9);
-define ('PHP_EXTRA_VERSION', "-4ubuntu2.2");
-define ('PHP_VERSION_ID', 50409);
+define ('PHP_MINOR_VERSION', 6);
+define ('PHP_RELEASE_VERSION', 0);
+define ('PHP_EXTRA_VERSION', "RC2");
+define ('PHP_VERSION_ID', 50600);
 define ('PHP_ZTS', 0);
 define ('PHP_DEBUG', 0);
 define ('PHP_OS', "Linux");
 define ('PHP_SAPI', "cli");
 define ('DEFAULT_INCLUDE_PATH', ".:/usr/share/php:/usr/share/pear");
 define ('PEAR_INSTALL_DIR', "/usr/share/php");
-define ('PEAR_EXTENSION_DIR', "/usr/lib/php5/20100525");
-define ('PHP_EXTENSION_DIR', "/usr/lib/php5/20100525");
+define ('PEAR_EXTENSION_DIR', "/usr/lib/php5/20131226");
+define ('PHP_EXTENSION_DIR', "/usr/lib/php5/20131226");
 define ('PHP_PREFIX', "/usr");
 define ('PHP_BINDIR', "/usr/bin");
 define ('PHP_MANDIR', "/usr/share/man");
@@ -1631,80 +1657,69 @@ define ('PHP_OUTPUT_HANDLER_CONT', 0);
  * @link http://php.net/manual/en/outcontrol.constants.php
  */
 define ('PHP_OUTPUT_HANDLER_END', 8);
+
+/**
+ * <p>
+ * Controls whether an output buffer created by
+ * <b>ob_start</b> can be cleaned.
+ * </p>
+ * <p>
+ * Available since PHP 5.4.
+ * </p>
+ * @link http://php.net/manual/en/outcontrol.constants.php
+ */
 define ('PHP_OUTPUT_HANDLER_CLEANABLE', 16);
+
+/**
+ * <p>
+ * Controls whether an output buffer created by
+ * <b>ob_start</b> can be flushed.
+ * </p>
+ * <p>
+ * Available since PHP 5.4.
+ * </p>
+ * @link http://php.net/manual/en/outcontrol.constants.php
+ */
 define ('PHP_OUTPUT_HANDLER_FLUSHABLE', 32);
+
+/**
+ * <p>
+ * Controls whether an output buffer created by
+ * <b>ob_start</b> can be removed before the end of the script.
+ * </p>
+ * <p>
+ * Available since PHP 5.4.
+ * </p>
+ * @link http://php.net/manual/en/outcontrol.constants.php
+ */
 define ('PHP_OUTPUT_HANDLER_REMOVABLE', 64);
+
+/**
+ * <p>
+ * The default set of output buffer flags; currently equivalent to
+ * <b>PHP_OUTPUT_HANDLER_CLEANABLE</b> |
+ * <b>PHP_OUTPUT_HANDLER_FLUSHABLE</b> |
+ * <b>PHP_OUTPUT_HANDLER_REMOVABLE</b>.
+ * </p>
+ * <p>
+ * Available since PHP 5.4.
+ * </p>
+ * @link http://php.net/manual/en/outcontrol.constants.php
+ */
 define ('PHP_OUTPUT_HANDLER_STDFLAGS', 112);
 define ('PHP_OUTPUT_HANDLER_STARTED', 4096);
 define ('PHP_OUTPUT_HANDLER_DISABLED', 8192);
-
-/**
- * There is no error, the file uploaded with success.
- *
- * @link http://php.net/features.file-upload.errors.php
- * @since 4.3.0
- */
-define('UPLOAD_ERR_OK', 0);
-
-/**
- * The uploaded file exceeds the {@link http://php.net/ini.core.php#ini.upload-max-filesize <code>upload_max_filesize</code>}
- * directive in <code>php.ini</code>.
- *
- * @link http://php.net/features.file-upload.errors.php
- * @since 4.3.0
- */
-define('UPLOAD_ERR_INI_SIZE', 1);
-
-/**
- * The uploaded file exceeds the <code>MAX_FILE_SIZE</code> directive that was specified in the HTML form.
- *
- * @link http://php.net/features.file-upload.errors.php
- * @since 4.3.0
- */
-define('UPLOAD_ERR_FORM_SIZE', 2);
-
-/**
- * The uploaded file was only partially uploaded.
- *
- * @link http://php.net/features.file-upload.errors.php
- * @since 4.3.0
- */
-define('UPLOAD_ERR_PARTIAL', 3);
-
-/**
- * No file was uploaded.
- *
- * @link http://php.net/features.file-upload.errors.php
- * @since 4.3.0
- */
-define('UPLOAD_ERR_NO_FILE', 4);
-
-/**
- * Missing a temporary folder.
- *
- * @link http://php.net/features.file-upload.errors.php
- * @since 4.3.10
- * @since 5.0.3
- */
-define('UPLOAD_ERR_NO_TMP_DIR', 6);
-
-/**
- * Failed to write file to disk.
- *
- * @link http://php.net/features.file-upload.errors.php
- * @since 5.1.0
- */
-define('UPLOAD_ERR_CANT_WRITE', 7);
-
-/**
- * A PHP extension stopped the file upload. PHP does not provide a way to ascertain which extension caused the file
- * upload to stop; examining the list of loaded extensions with {@see phpinfo()} may help.
- *
- * @link http://php.net/features.file-upload.errors.php
- * @since 5.2.0
- */
-define('UPLOAD_ERR_EXTENSION', 8);
-
+define ('UPLOAD_ERR_OK', 0);
+define ('UPLOAD_ERR_INI_SIZE', 1);
+define ('UPLOAD_ERR_FORM_SIZE', 2);
+define ('UPLOAD_ERR_PARTIAL', 3);
+define ('UPLOAD_ERR_NO_FILE', 4);
+define ('UPLOAD_ERR_NO_TMP_DIR', 6);
+define ('UPLOAD_ERR_CANT_WRITE', 7);
+define ('UPLOAD_ERR_EXTENSION', 8);
 define ('STDIN', "Resource id #1");
 define ('STDOUT', "Resource id #2");
 define ('STDERR', "Resource id #3");
+
+// End of Core v.5.6.0RC2
+?>

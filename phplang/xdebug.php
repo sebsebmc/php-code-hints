@@ -2,28 +2,13 @@
 
 // Start of xdebug v.2.2.3
 
-define("XDEBUG_STACK_NO_DESC", 1);
-
 function xdebug_get_stack_depth () {}
 
 function xdebug_get_function_stack () {}
 
 function xdebug_get_formatted_function_stack () {}
 
-/**
- * Get the current formatted function stack.
- *
- * @param string $message [optional]
- *   Replace the message in the header.
- * @param integer $options [optional]
- *   Bit mask used to configure the output, the following options are available:
- *   <ul>
- *     <li><code>XDEBUG_STACK_NO_DESC</code> omit the header.</li>
- *   </ul>
- * @return string
- *   The current formatted function stack.
- */
-function xdebug_print_function_stack($message = null, $options = 0) {}
+function xdebug_print_function_stack () {}
 
 function xdebug_get_declared_vars () {}
 

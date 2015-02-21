@@ -119,7 +119,7 @@ function mysql_select_db ($database_name, $link_identifier = NULL) {}
  * Data inside the query should be properly escaped.
  * </p>
  * @param resource $link_identifier [optional]
- * @return resource For SELECT, SHOW, DESCRIBE, EXPLAIN and other statements returning resultset,
+ * @return mixed For SELECT, SHOW, DESCRIBE, EXPLAIN and other statements returning resultset,
  * <b>mysql_query</b>
  * returns a resource on success, or <b>FALSE</b> on
  * error.

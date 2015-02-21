@@ -188,7 +188,7 @@ function easter_date ($year = null) {}
  * The year as a positive number
  * </p>
  * @param int $method [optional] <p>
- * Allows to calculate easter dates based
+ * Allows Easter dates to be calculated based
  * on the Gregorian calendar during the years 1582 - 1752 when set to
  * <b>CAL_EASTER_ROMAN</b>. See the calendar constants for more valid
  * constants.

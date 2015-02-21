@@ -501,6 +501,13 @@ function ldap_add ($link_identifier, $dn, array $entry) {}
 function ldap_delete ($link_identifier, $dn) {}
 
 /**
+ * @param $link_identifier
+ * @param $dn
+ * @param $modifications_info
+ */
+function ldap_modify_batch ($link_identifier, $dnarray , $modifications_info) {}
+
+/**
  * (PHP 4, PHP 5)<br/>
  * Modify an LDAP entry
  * @link http://php.net/manual/en/function.ldap-modify.php
@@ -867,13 +874,28 @@ function ldap_parse_reference ($link, $entry, array &$referrals) {}
  * (PHP 4 &gt;= 4.0.5, PHP 5)<br/>
  * Extract information from result
  * @link http://php.net/manual/en/function.ldap-parse-result.php
- * @param resource $link
+ * @param resource $link <p>
+ * An LDAP link identifier, returned by <b>ldap_connect</b>.
+ * </p>
  * @param resource $result
- * @param int $errcode
- * @param string $matcheddn [optional]
- * @param string $errmsg [optional]
- * @param array $referrals [optional]
- * @return bool
+ * @param int $errcode <p>
+ * A reference to a variable that will be set to the LDAP error code in
+ * the result, or 0 if no error occurred.
+ * </p>
+ * @param string $matcheddn [optional] <p>
+ * A reference to a variable that will be set to a matched DN if one was
+ * recognised within the request, otherwise it will be set to <b>NULL</b>.
+ * </p>
+ * @param string $errmsg [optional] <p>
+ * A reference to a variable that will be set to the LDAP error message in
+ * the result, or an empty string if no error occurred.
+ * </p>
+ * @param array $referrals [optional] <p>
+ * A reference to a variable that will be set to an array set
+ * to all of the referral strings in the result, or an empty array if no
+ * referrals were returned.
+ * </p>
+ * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure.
  */
 function ldap_parse_result ($link, $result, &$errcode, &$matcheddn = null, &$errmsg = null, array &$referrals = null) {}
 
@@ -895,6 +917,13 @@ function ldap_start_tls ($link) {}
  * @return bool
  */
 function ldap_set_rebind_proc ($link, callable $callback) {}
+
+/**
+ * @param $value
+ * @param $ignore [optional]
+ * @param $flags [optional]
+ */
+function ldap_escape ($value, $ignore, $flags) {}
 
 /**
  * (PHP 5 &gt;= 5.4.0)<br/>
@@ -941,6 +970,13 @@ define ('LDAP_DEREF_NEVER', 0);
 define ('LDAP_DEREF_SEARCHING', 1);
 define ('LDAP_DEREF_FINDING', 2);
 define ('LDAP_DEREF_ALWAYS', 3);
+define ('LDAP_MODIFY_BATCH_ADD', 1);
+define ('LDAP_MODIFY_BATCH_REMOVE', 2);
+define ('LDAP_MODIFY_BATCH_REMOVE_ALL', 18);
+define ('LDAP_MODIFY_BATCH_REPLACE', 3);
+define ('LDAP_MODIFY_BATCH_ATTRIB', "attrib");
+define ('LDAP_MODIFY_BATCH_MODTYPE', "modtype");
+define ('LDAP_MODIFY_BATCH_VALUES', "values");
 
 /**
  * Specifies alternative rules for following aliases at the server.
@@ -1015,6 +1051,8 @@ define ('LDAP_OPT_X_SASL_MECH', 24832);
 define ('LDAP_OPT_X_SASL_REALM', 24833);
 define ('LDAP_OPT_X_SASL_AUTHCID', 24834);
 define ('LDAP_OPT_X_SASL_AUTHZID', 24835);
+define ('LDAP_ESCAPE_FILTER', 1);
+define ('LDAP_ESCAPE_DN', 2);
 
 // End of ldap v.
 ?>

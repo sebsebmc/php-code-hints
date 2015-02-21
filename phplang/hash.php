@@ -62,6 +62,7 @@ function hash_file ($algo, $filename, $raw_output = false) {}
  * @return string a string containing the calculated message digest as lowercase hexits
  * unless <i>raw_output</i> is set to true in which case the raw
  * binary representation of the message digest is returned.
+ * Returns <b>FALSE</b> when <i>algo</i> is unknown.
  */
 function hash_hmac ($algo, $data, $key, $raw_output = false) {}
 
@@ -212,6 +213,12 @@ function hash_algos () {}
  * binary representation of the derived key is returned.
  */
 function hash_pbkdf2 ($algo, $password, $salt, $iterations, $length, $raw_output) {}
+
+/**
+ * @param $known_string
+ * @param $user_string
+ */
+function hash_equals ($known_string, $user_string) {}
 
 /**
  * (PHP 4 &gt;= 4.0.4, PHP 5)<br/>

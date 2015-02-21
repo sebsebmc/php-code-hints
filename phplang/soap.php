@@ -274,6 +274,8 @@ class SoapClient  {
 	 */
 	public function __setCookie ($name, $value = null) {}
 
+	public function __getCookies () {}
+
 	/**
 	 * (PHP 5 &gt;= 5.0.1)<br/>
 	 * Sets the location of the Web service to use

@@ -851,7 +851,7 @@ function imagescale ($image, $new_width, $new_height = -1, $mode = 'IMG_BILINEAR
 
 /**
  * (PHP 5 &gt;= 5.5.0)<br/>
- * Return an image containing the affine tramsformed src image, using an optional clipping area
+ * Return an image containing the affine transformed src image, using an optional clipping area
  * @link http://php.net/manual/en/function.imageaffine.php
  * @param resource $image
  * @param array $affine <p>
@@ -1959,7 +1959,7 @@ function png2wbmp ($pngname, $wbmpname, $dest_height, $dest_width, $threshold) {
  * @param resource $image
  * @param string $filename [optional] <p>
  * Path to the saved file. If not given, the raw image stream will be
- * outputted directly.
+ * output directly.
  * </p>
  * @param int $threshold [optional] <p>
  * Threshold value, between 0 and 255 (inclusive).

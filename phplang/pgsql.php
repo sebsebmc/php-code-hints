@@ -72,6 +72,11 @@ function pg_connect ($connection_string, $connect_type = null) {}
 function pg_pconnect ($connection_string, $connect_type = null) {}
 
 /**
+ * @param $connection [optional]
+ */
+function pg_connect_poll ($connection) {}
+
+/**
  * (PHP 4, PHP 5)<br/>
  * Closes a PostgreSQL connection
  * @link http://php.net/manual/en/function.pg-close.php
@@ -955,6 +960,21 @@ function pg_field_table ($result, $field_number, $oid_only = false) {}
 function pg_get_notify ($connection, $result_type = null) {}
 
 /**
+ * @param $connection
+ */
+function pg_socket ($connection) {}
+
+/**
+ * @param $connection
+ */
+function pg_consume_input ($connection) {}
+
+/**
+ * @param $connection
+ */
+function pg_flush ($connection) {}
+
+/**
  * (PHP 4 &gt;= 4.3.0, PHP 5)<br/>
  * Gets the backend's process ID
  * @link http://php.net/manual/en/function.pg-get-pid.php
@@ -974,8 +994,8 @@ function pg_get_pid ($connection) {}
  * <b>pg_query_params</b> or <b>pg_execute</b>
  * (among others).
  * </p>
- * @return string a string if there is an error associated with the
- * <i>result</i> parameter, <b>FALSE</b> otherwise.
+ * @return string a string. Returns empty string if there is no error. If there is an error associated with the
+ * <i>result</i> parameter, returns <b>FALSE</b>.
  */
 function pg_result_error ($result) {}
 
@@ -1342,6 +1362,20 @@ function pg_lo_seek ($large_object, $offset, $whence = 'PGSQL_SEEK_CUR') {}
 function pg_lo_tell ($large_object) {}
 
 /**
+ * (No version information available, might only be in Git)<br/>
+ * Truncates a large object
+ * @link http://php.net/manual/en/function.pg-lo-truncate.php
+ * @param resource $large_object <p>
+ * PostgreSQL large object (LOB) resource, returned by <b>pg_lo_open</b>.
+ * </p>
+ * @param int $size <p>
+ * The number of bytes to truncate.
+ * </p>
+ * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure.
+ */
+function pg_lo_truncate ($large_object, $size) {}
+
+/**
  * (PHP 4 &gt;= 4.2.0, PHP 5)<br/>
  * Escape a string for query
  * @link http://php.net/manual/en/function.pg-escape-string.php
@@ -1493,9 +1527,12 @@ function pg_set_client_encoding ($connection = null, $encoding) {}
  * @param string $table_name <p>
  * The name of the table.
  * </p>
+ * @param bool $extended [optional] <p>
+ * Flag for returning extended meta data. Default to <b>FALSE</b>.
+ * </p>
  * @return array An array of the table definition, or <b>FALSE</b> on error.
  */
-function pg_meta_data ($connection, $table_name) {}
+function pg_meta_data ($connection, $table_name, $extended = null) {}
 
 /**
  * (PHP 4 &gt;= 4.3.0, PHP 5)<br/>
@@ -1537,10 +1574,12 @@ function pg_convert ($connection, $table_name, array $assoc_array, $options = 0)
  * @param int $options [optional] <p>
  * Any number of <b>PGSQL_CONV_OPTS</b>,
  * <b>PGSQL_DML_NO_CONV</b>,
+ * <b>PGSQL_DML_ESCAPE</b>,
  * <b>PGSQL_DML_EXEC</b>,
  * <b>PGSQL_DML_ASYNC</b> or
  * <b>PGSQL_DML_STRING</b> combined. If <b>PGSQL_DML_STRING</b> is part of the
- * <i>options</i> then query string is returned.
+ * <i>options</i> then query string is returned. When <b>PGSQL_DML_NO_CONV</b>
+ * or <b>PGSQL_DML_ESCAPE</b> is set, it does not call <b>pg_convert</b> internally.
  * </p>
  * @return mixed <b>TRUE</b> on success or <b>FALSE</b> on failure. Returns string if <b>PGSQL_DML_STRING</b> is passed
  * via <i>options</i>.
@@ -1566,11 +1605,14 @@ function pg_insert ($connection, $table_name, array $assoc_array, $options = 'PG
  * and whose values are the conditions that a row must meet to be updated.
  * </p>
  * @param int $options [optional] <p>
- * Any number of <b>PGSQL_CONV_OPTS</b>,
+ * Any number of <b>PGSQL_CONV_FORCE_NULL</b>,
  * <b>PGSQL_DML_NO_CONV</b>,
- * <b>PGSQL_DML_EXEC</b> or
+ * <b>PGSQL_DML_ESCAPE</b>,
+ * <b>PGSQL_DML_EXEC</b>,
+ * <b>PGSQL_DML_ASYNC</b> or
  * <b>PGSQL_DML_STRING</b> combined. If <b>PGSQL_DML_STRING</b> is part of the
- * <i>options</i> then query string is returned.
+ * <i>options</i> then query string is returned. When <b>PGSQL_DML_NO_CONV</b>
+ * or <b>PGSQL_DML_ESCAPE</b> is set, it does not call <b>pg_convert</b> internally.
  * </p>
  * @return mixed <b>TRUE</b> on success or <b>FALSE</b> on failure. Returns string if <b>PGSQL_DML_STRING</b> is passed
  * via <i>options</i>.
@@ -1594,9 +1636,12 @@ function pg_update ($connection, $table_name, array $data, array $condition, $op
  * @param int $options [optional] <p>
  * Any number of <b>PGSQL_CONV_FORCE_NULL</b>,
  * <b>PGSQL_DML_NO_CONV</b>,
- * <b>PGSQL_DML_EXEC</b> or
+ * <b>PGSQL_DML_ESCAPE</b>,
+ * <b>PGSQL_DML_EXEC</b>,
+ * <b>PGSQL_DML_ASYNC</b> or
  * <b>PGSQL_DML_STRING</b> combined. If <b>PGSQL_DML_STRING</b> is part of the
- * <i>options</i> then query string is returned.
+ * <i>options</i> then query string is returned. When <b>PGSQL_DML_NO_CONV</b>
+ * or <b>PGSQL_DML_ESCAPE</b> is set, it does not call <b>pg_convert</b> internally.
  * </p>
  * @return mixed <b>TRUE</b> on success or <b>FALSE</b> on failure. Returns string if <b>PGSQL_DML_STRING</b> is passed
  * via <i>options</i>.
@@ -1620,10 +1665,12 @@ function pg_delete ($connection, $table_name, array $assoc_array, $options = 'PG
  * @param int $options [optional] <p>
  * Any number of <b>PGSQL_CONV_FORCE_NULL</b>,
  * <b>PGSQL_DML_NO_CONV</b>,
+ * <b>PGSQL_DML_ESCAPE</b>,
  * <b>PGSQL_DML_EXEC</b>,
  * <b>PGSQL_DML_ASYNC</b> or
  * <b>PGSQL_DML_STRING</b> combined. If <b>PGSQL_DML_STRING</b> is part of the
- * <i>options</i> then query string is returned.
+ * <i>options</i> then query string is returned. When <b>PGSQL_DML_NO_CONV</b>
+ * or <b>PGSQL_DML_ESCAPE</b> is set, it does not call <b>pg_convert</b> internally.
  * </p>
  * @return mixed <b>TRUE</b> on success or <b>FALSE</b> on failure. Returns string if <b>PGSQL_DML_STRING</b> is passed
  * via <i>options</i>.
@@ -1776,8 +1823,18 @@ function pg_clientencoding ($connection) {}
  */
 function pg_setclientencoding ($connection, $encoding) {}
 
-define ('PGSQL_LIBPQ_VERSION', "9.1.10");
-define ('PGSQL_LIBPQ_VERSION_STR', "PostgreSQL 9.1.10 on x86_64-unknown-linux-gnu, compiled by gcc (Ubuntu/Linaro 4.8.1-10ubuntu7) 4.8.1, 64-bit");
+
+/**
+ * Short libpq version that contains only numbers and dots.
+ * @link http://php.net/manual/en/pgsql.constants.php
+ */
+define ('PGSQL_LIBPQ_VERSION', "9.3.4");
+
+/**
+ * Long libpq version that includes compiler information.
+ * @link http://php.net/manual/en/pgsql.constants.php
+ */
+define ('PGSQL_LIBPQ_VERSION_STR', "PostgreSQL 9.3.4 on x86_64-unknown-linux-gnu, compiled by gcc (Ubuntu 4.8.2-16ubuntu6) 4.8.2, 64-bit");
 
 /**
  * Passed to <b>pg_connect</b> to force the creation of a new connection,
@@ -1785,6 +1842,7 @@ define ('PGSQL_LIBPQ_VERSION_STR', "PostgreSQL 9.1.10 on x86_64-unknown-linux-gn
  * @link http://php.net/manual/en/pgsql.constants.php
  */
 define ('PGSQL_CONNECT_FORCE_NEW', 2);
+define ('PGSQL_CONNECT_ASYNC', 4);
 
 /**
  * Passed to <b>pg_fetch_array</b>. Return an associative array of field
@@ -1820,6 +1878,17 @@ define ('PGSQL_CONNECTION_BAD', 1);
  * @link http://php.net/manual/en/pgsql.constants.php
  */
 define ('PGSQL_CONNECTION_OK', 0);
+define ('PGSQL_CONNECTION_STARTED', 2);
+define ('PGSQL_CONNECTION_MADE', 3);
+define ('PGSQL_CONNECTION_AWAITING_RESPONSE', 4);
+define ('PGSQL_CONNECTION_AUTH_OK', 5);
+define ('PGSQL_CONNECTION_SSL_STARTUP', 7);
+define ('PGSQL_CONNECTION_SETENV', 6);
+define ('PGSQL_POLLING_FAILED', 0);
+define ('PGSQL_POLLING_READING', 1);
+define ('PGSQL_POLLING_WRITING', 2);
+define ('PGSQL_POLLING_OK', 3);
+define ('PGSQL_POLLING_ACTIVE', 4);
 
 /**
  * Returned by <b>pg_transaction_status</b>. Connection is
@@ -2095,9 +2164,49 @@ define ('PGSQL_CONV_FORCE_NULL', 4);
  * @link http://php.net/manual/en/pgsql.constants.php
  */
 define ('PGSQL_CONV_IGNORE_NOT_NULL', 8);
+
+/**
+ * Passed to <b>pg_insert</b>, <b>pg_select</b>,
+ * <b>pg_update</b> and <b>pg_delete</b>.
+ * Apply escape to all parameters instead of calling <b>pg_convert</b>
+ * internally. This option omits meta data look up. Query could be as fast as
+ * <b>pg_query</b> and <b>pg_send_query</b>.
+ * @link http://php.net/manual/en/pgsql.constants.php
+ */
+define ('PGSQL_DML_ESCAPE', 4096);
+
+/**
+ * Passed to <b>pg_insert</b>, <b>pg_select</b>,
+ * <b>pg_update</b> and <b>pg_delete</b>.
+ * All parameters passed as is. Manual escape is required
+ * if parameters contain user supplied data. Use <b>pg_escape_string</b>
+ * for it.
+ * @link http://php.net/manual/en/pgsql.constants.php
+ */
 define ('PGSQL_DML_NO_CONV', 256);
+
+/**
+ * Passed to <b>pg_insert</b>, <b>pg_select</b>,
+ * <b>pg_update</b> and <b>pg_delete</b>.
+ * Execute query by these functions.
+ * @link http://php.net/manual/en/pgsql.constants.php
+ */
 define ('PGSQL_DML_EXEC', 512);
+
+/**
+ * Passed to <b>pg_insert</b>, <b>pg_select</b>,
+ * <b>pg_update</b> and <b>pg_delete</b>.
+ * Execute asynchronous query by these functions.
+ * @link http://php.net/manual/en/pgsql.constants.php
+ */
 define ('PGSQL_DML_ASYNC', 1024);
+
+/**
+ * Passed to <b>pg_insert</b>, <b>pg_select</b>,
+ * <b>pg_update</b> and <b>pg_delete</b>.
+ * Return executed query string.
+ * @link http://php.net/manual/en/pgsql.constants.php
+ */
 define ('PGSQL_DML_STRING', 2048);
 
 // End of pgsql v.

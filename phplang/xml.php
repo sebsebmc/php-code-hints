@@ -45,7 +45,7 @@ function xml_parser_create ($encoding = null) {}
  * </p>
  * @return resource a resource handle for the new XML parser.
  */
-function xml_parser_create_ns ($encoding = null, $separator = ':') {}
+function xml_parser_create_ns ($encoding = null, $separator = ":") {}
 
 /**
  * (PHP 4, PHP 5)<br/>

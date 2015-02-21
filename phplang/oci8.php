@@ -1,6 +1,6 @@
 <?php
 
-// Start of oci8 v.2.0.7
+// Start of oci8 v.2.0.8
 
 /**
  * OCI8 LOB functionality for large binary (BLOB) and character (CLOB) objects.
@@ -481,13 +481,13 @@ function oci_bind_array_by_name ($statement, $name, array &$var_array, $max_tabl
 
 /**
  * (PHP 5, PECL OCI8 &gt;= 1.1.0)<br/>
- * Checks if the field is <b>NULL</b>
+ * Checks if a field in the currently fetched row is <b>NULL</b>
  * @link http://php.net/manual/en/function.oci-field-is-null.php
  * @param resource $statement <p>
  * A valid OCI statement identifier.
  * </p>
  * @param mixed $field <p>
- * Can be a field's index or a field's name (uppercased).
+ * Can be the field's index (1-based) or name.
  * </p>
  * @return bool <b>TRUE</b> if <i>field</i> is <b>NULL</b>, <b>FALSE</b> otherwise.
  */
@@ -500,7 +500,7 @@ function oci_field_is_null ($statement, $field) {}
  * @param resource $statement <p>
  * A valid OCI statement identifier.
  * </p>
- * @param int $field <p>
+ * @param mixed $field <p>
  * Can be the field's index (1-based) or name.
  * </p>
  * @return string the name as a string, or <b>FALSE</b> on errors.
@@ -529,7 +529,7 @@ function oci_field_size ($statement, $field) {}
  * @param resource $statement <p>
  * A valid OCI statement identifier.
  * </p>
- * @param int $field <p>
+ * @param mixed $field <p>
  * Can be the field's index (1-based) or name.
  * </p>
  * @return int the scale as an integer, or <b>FALSE</b> on errors.
@@ -543,7 +543,7 @@ function oci_field_scale ($statement, $field) {}
  * @param resource $statement <p>
  * A valid OCI statement identifier.
  * </p>
- * @param int $field <p>
+ * @param mixed $field <p>
  * Can be the field's index (1-based) or name.
  * </p>
  * @return int the precision as an integer, or <b>FALSE</b> on errors.
@@ -552,12 +552,12 @@ function oci_field_precision ($statement, $field) {}
 
 /**
  * (PHP 5, PECL OCI8 &gt;= 1.1.0)<br/>
- * Returns field's data type
+ * Returns a field's data type name
  * @link http://php.net/manual/en/function.oci-field-type.php
  * @param resource $statement <p>
  * A valid OCI statement identifier.
  * </p>
- * @param int $field <p>
+ * @param mixed $field <p>
  * Can be the field's index (1-based) or name.
  * </p>
  * @return mixed the field data type as a string, or <b>FALSE</b> on errors.
@@ -571,10 +571,10 @@ function oci_field_type ($statement, $field) {}
  * @param resource $statement <p>
  * A valid OCI statement identifier.
  * </p>
- * @param int $field <p>
+ * @param mixed $field <p>
  * Can be the field's index (1-based) or name.
  * </p>
- * @return int Oracle's raw data type as a string, or <b>FALSE</b> on errors.
+ * @return int Oracle's raw data type as a number, or <b>FALSE</b> on errors.
  */
 function oci_field_type_raw ($statement, $field) {}
 
@@ -876,7 +876,8 @@ function ocifetchinto ($statement_resource, &$result, $mode) {}
  * </table>
  * </p>
  * <p>
- * Arrays can be indexed by column heading or numerically.
+ * Arrays can be indexed either by column heading or numerically.
+ * Only one index mode will be returned.
  * <table>
  * <b>oci_fetch_all</b> Array Index Modes
  * <tr valign="top">
@@ -2208,6 +2209,12 @@ define ('SQLT_BDOUBLE', 22);
 define ('SQLT_BFLOAT', 21);
 
 /**
+ * The same as <b>OCI_B_BOL</b>.
+ * @link http://php.net/manual/en/oci8.constants.php
+ */
+define ('SQLT_BOL', 252);
+
+/**
  * Used with <b>oci_bind_by_name</b> when binding
  * named data types. Note: in PHP &lt; 5.0 it was called
  * <b>OCI_B_SQLT_NTY</b>.
@@ -2289,6 +2296,13 @@ define ('OCI_B_INT', 3);
  * @link http://php.net/manual/en/oci8.constants.php
  */
 define ('OCI_B_NUM', 2);
+
+/**
+ * Used with <b>oci_bind_by_name</b> to bind a PL/SQL BOOLEAN
+ * variable.
+ * @link http://php.net/manual/en/oci8.constants.php
+ */
+define ('OCI_B_BOL', 252);
 
 /**
  * Default mode of <b>oci_fetch_all</b>.
@@ -2393,20 +2407,5 @@ define ('OCI_TEMP_CLOB', 2);
  */
 define ('OCI_TEMP_BLOB', 1);
 
-/**
- * (PECL OCI8 &gt;= 2.0.7)<br/>
- * The same as <b>OCI_B_BOL</b>.
- * @link http://php.net/manual/en/oci8.constants.php
- */
-define ('SQLT_BOL', 252);
-
-/**
- * (PECL OCI8 &gt;= 2.0.7)<br/>
- * Used with <b>oci_bind_by_name</b> when
- * binding PL/SQL BOOLEAN.
- * @link http://php.net/manual/en/oci8.constants.php
- */
-define ('OCI_B_BOL', 252);
-
-// End of oci8 v.2.0.7
+// End of oci8 v.2.0.8
 ?>

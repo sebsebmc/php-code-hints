@@ -1,6 +1,6 @@
 <?php
 
-// Start of apcu v.4.0.1
+// Start of apcu v.4.0.6
 
 /**
  * @param $type [optional]
@@ -9,14 +9,21 @@
 function apcu_cache_info ($type, $limited) {}
 
 /**
- * @param $info [optional]
+ * @param $cache [optional]
  */
-function apcu_clear_cache ($info) {}
+function apcu_clear_cache ($cache) {}
 
 /**
  * @param $limited [optional]
  */
 function apcu_sma_info ($limited) {}
+
+/**
+ * @param $key
+ */
+function apcu_key_info ($key) {}
+
+function apcu_enabled () {}
 
 /**
  * @param $key
@@ -97,5 +104,5 @@ function apcu_bin_loadfile ($filename, $context, $flags) {}
 
 define ('APCU_APC_FULL_BC', true);
 
-// End of apcu v.4.0.1
+// End of apcu v.4.0.6
 ?>

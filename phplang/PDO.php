@@ -580,6 +580,39 @@ class PDO  {
 	const CURSOR_SCROLL = 1;
 
 	/**
+	 * <p>
+	 * Available since PHP 5.3.0.
+	 * </p>
+	 * <p>
+	 * Sets the date format.
+	 * </p>
+	 * @link http://php.net/manual/en/pdo-firebird.constants.php
+	 */
+	const FB_ATTR_DATE_FORMAT = 1000;
+
+	/**
+	 * <p>
+	 * Sets the time format.
+	 * </p>
+	 * <p>
+	 * Available since PHP 5.3.0.
+	 * </p>
+	 * @link http://php.net/manual/en/pdo-firebird.constants.php
+	 */
+	const FB_ATTR_TIME_FORMAT = 1001;
+
+	/**
+	 * <p>
+	 * Sets the timestamp format.
+	 * </p>
+	 * <p>
+	 * Available since PHP 5.3.0.
+	 * </p>
+	 * @link http://php.net/manual/en/pdo-firebird.constants.php
+	 */
+	const FB_ATTR_TIMESTAMP_FORMAT = 1002;
+
+	/**
 	 * If this attribute is set to <b>TRUE</b> on a
 	 * <b>PDOStatement</b>, the MySQL driver will use the
 	 * buffered versions of the MySQL API. If you're writing portable code, you
@@ -752,6 +785,7 @@ class PDO  {
 	const ODBC_SQL_USE_DRIVER = 2;
 	const ODBC_SQL_USE_ODBC = 1;
 	const PGSQL_ATTR_DISABLE_NATIVE_PREPARED_STATEMENT = 1000;
+	const PGSQL_ATTR_DISABLE_PREPARES = 1001;
 	const PGSQL_TRANSACTION_IDLE = 0;
 	const PGSQL_TRANSACTION_ACTIVE = 1;
 	const PGSQL_TRANSACTION_INTRANS = 2;
@@ -764,8 +798,8 @@ class PDO  {
 	 * Creates a PDO instance representing a connection to a database
 	 * @link http://php.net/manual/en/pdo.construct.php
 	 * @param $dsn
-	 * @param $username
-	 * @param $passwd
+	 * @param $username [optional]
+	 * @param $passwd [optional]
 	 * @param $options [optional]
 	 */
 	public function __construct ($dsn, $username, $passwd, $options) {}

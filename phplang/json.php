@@ -1,6 +1,6 @@
 <?php
 
-// Start of json v.1.3.1
+// Start of json v.1.3.5
 
 /**
  * Objects implementing JsonSerializable
@@ -116,10 +116,9 @@ function json_encode ($value, $options = 0, $depth = 512) {}
  * </p>
  * @return mixed the value encoded in <i>json</i> in appropriate
  * PHP type. Values true, false and
- * null (case-insensitive) are returned as <b>TRUE</b>, <b>FALSE</b>
- * and <b>NULL</b> respectively. <b>NULL</b> is returned if the
- * <i>json</i> cannot be decoded or if the encoded
- * data is deeper than the recursion limit.
+ * null are returned as <b>TRUE</b>, <b>FALSE</b> and <b>NULL</b>
+ * respectively. <b>NULL</b> is returned if the <i>json</i> cannot
+ * be decoded or if the encoded data is deeper than the recursion limit.
  */
 function json_decode ($json, $assoc = false, $depth = 512, $options = 0) {}
 
@@ -136,7 +135,8 @@ function json_last_error () {}
  * (PHP 5 &gt;= 5.5.0)<br/>
  * Returns the error string of the last json_encode() or json_decode() call
  * @link http://php.net/manual/en/function.json-last-error-msg.php
- * @return string the error message on success or <b>NULL</b> with wrong parameters.
+ * @return string the error message on success, "No Error" if no
+ * error has occurred, or <b>FALSE</b> on failure.
  */
 function json_last_error_msg () {}
 
@@ -301,6 +301,8 @@ define ('JSON_PARSER_NOTSTRICT', 4);
  * @link http://php.net/manual/en/json.constants.php
  */
 define ('JSON_BIGINT_AS_STRING', 2);
+define ('JSON_C_BUNDLED', 0);
+define ('JSON_C_VERSION', "0.11.99");
 
-// End of json v.1.3.1
+// End of json v.1.3.5
 ?>

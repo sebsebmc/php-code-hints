@@ -1,6 +1,6 @@
 <?php
 
-// Start of geoip v.1.0.8
+// Start of geoip v.1.1.0
 
 /**
  * (PECL geoip &gt;= 0.2.0)<br/>
@@ -190,6 +190,53 @@ function geoip_region_name_by_code ($country_code, $region_code) {}
  */
 function geoip_time_zone_by_country_and_region ($country_code, $region_code = null) {}
 
+/**
+ * (PECL geoip &gt;= 1.1.0)<br/>
+ * Set a custom directory for the GeoIP database.
+ * @link http://php.net/manual/en/function.geoip-setup-custom-directory.php
+ * @param string $path <p>
+ * The full path of where the GeoIP database is on disk.
+ * </p>
+ * @return void No value is returned.
+ */
+function geoip_setup_custom_directory ($path) {}
+
+/**
+ * (PECL geoip &gt;= 1.1.0)<br/>
+ * Get the Autonomous System Numbers (ASN)
+ * @link http://php.net/manual/en/function.geoip-asnum-by-name.php
+ * @param string $hostname <p>
+ * The hostname or IP address.
+ * </p>
+ * @return string the ASN on success, or <b>FALSE</b> if the address
+ * cannot be found in the database.
+ */
+function geoip_asnum_by_name ($hostname) {}
+
+/**
+ * (PECL geoip &gt;= 1.1.0)<br/>
+ * Get the second level domain name
+ * @link http://php.net/manual/en/function.geoip-domain-by-name.php
+ * @param string $hostname <p>
+ * The hostname or IP address.
+ * </p>
+ * @return string the domain name on success, or <b>FALSE</b> if the address
+ * cannot be found in the database.
+ */
+function geoip_domain_by_name ($hostname) {}
+
+/**
+ * (PECL geoip &gt;= 1.1.0)<br/>
+ * Get the Internet connection speed
+ * @link http://php.net/manual/en/function.geoip-netspeedcell-by-name.php
+ * @param string $hostname <p>
+ * The hostname or IP address.
+ * </p>
+ * @return string the connection speed on success, or <b>FALSE</b> if the address
+ * cannot be found in the database.
+ */
+function geoip_netspeedcell_by_name ($hostname) {}
+
 define ('GEOIP_COUNTRY_EDITION', 1);
 define ('GEOIP_REGION_EDITION_REV0', 7);
 define ('GEOIP_CITY_EDITION_REV0', 6);
@@ -201,10 +248,11 @@ define ('GEOIP_PROXY_EDITION', 8);
 define ('GEOIP_ASNUM_EDITION', 9);
 define ('GEOIP_NETSPEED_EDITION', 10);
 define ('GEOIP_DOMAIN_EDITION', 11);
+define ('GEOIP_NETSPEED_EDITION_REV1', 32);
 define ('GEOIP_UNKNOWN_SPEED', 0);
 define ('GEOIP_DIALUP_SPEED', 1);
 define ('GEOIP_CABLEDSL_SPEED', 2);
 define ('GEOIP_CORPORATE_SPEED', 3);
 
-// End of geoip v.1.0.8
+// End of geoip v.1.1.0
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-// Start of apc v.4.0.1
+// Start of apc v.4.0.6
 
 /**
  * (PECL apc &gt;= 2.0.0)<br/>
@@ -296,5 +296,5 @@ function apc_bin_load ($data, $flags = 0) {}
  */
 function apc_bin_loadfile ($filename, $context = NULL, $flags = 0) {}
 
-// End of apc v.4.0.1
+// End of apc v.4.0.6
 ?>

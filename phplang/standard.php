@@ -1,6 +1,6 @@
 <?php
 
-// Start of standard v.5.5.3-1ubuntu2.1
+// Start of standard v.5.6.0RC2
 
 class __PHP_Incomplete_Class  {
 }
@@ -35,7 +35,7 @@ class Directory  {
 	/**
 	 * <p style="margin-top:0;">
 	 * Can be used with other directory functions such as
-	 * <b>readdir()</b>,  <b>rewinddir()</b> and
+	 * <b>readdir()</b>, <b>rewinddir()</b> and
 	 * <b>closedir()</b>.
 	 * </p>
 	 * @var resource
@@ -229,7 +229,7 @@ function strptime ($date, $format) {}
 
 /**
  * (PHP 4, PHP 5)<br/>
- * Flush the output buffer
+ * Flush system output buffer
  * @link http://php.net/manual/en/function.flush.php
  * @return void No value is returned.
  */
@@ -340,9 +340,11 @@ function wordwrap ($str, $width = 75, $break = "\n", $cut = false) {}
  * </table>
  * </p>
  * @param string $encoding [optional] <p>
- * Defines encoding used in conversion.
- * If omitted, the default value for this argument is ISO-8859-1 in
- * versions of PHP prior to 5.4.0, and UTF-8 from PHP 5.4.0 onwards.
+ * From PHP 5.6.0, default_charset
+ * value is used as default. From PHP 5.4.0, UTF-8 is the default.
+ * PHP prior to 5.4.0, ISO-8859-1 is used as the default.
+ * Although this argument is technically optional, you are highly
+ * encouraged to specify the correct value for your code.
  * </p>
  * <p>
  * For the purposes of this function, the encodings
@@ -366,7 +368,7 @@ function wordwrap ($str, $width = 75, $break = "\n", $cut = false) {}
  * will be returned, unless either the <b>ENT_IGNORE</b> or
  * <b>ENT_SUBSTITUTE</b> flags are set.
  */
-function htmlspecialchars ($string, $flags = 'ENT_COMPAT | ENT_HTML401', $encoding = 'UTF-8', $double_encode = true) {}
+function htmlspecialchars ($string, $flags = 'ENT_COMPAT | ENT_HTML401', $encoding = "UTF-8", $double_encode = true) {}
 
 /**
  * (PHP 4, PHP 5)<br/>
@@ -453,8 +455,9 @@ function htmlspecialchars ($string, $flags = 'ENT_COMPAT | ENT_HTML401', $encodi
  * <b>htmlentities</b> takes an optional third argument
  * <i>encoding</i> which defines encoding used in
  * conversion.
- * If omitted, the default value for this argument is ISO-8859-1 in
- * versions of PHP prior to 5.4.0, and UTF-8 from PHP 5.4.0 onwards.
+ * From PHP 5.6.0, default_charset
+ * value is used as default. From PHP 5.4.0, UTF-8 is the default.
+ * PHP prior to 5.4.0, ISO-8859-1 is used as the default.
  * Although this argument is technically optional, you are highly
  * encouraged to specify the correct value for your code.
  * </p>
@@ -470,7 +473,7 @@ function htmlspecialchars ($string, $flags = 'ENT_COMPAT | ENT_HTML401', $encodi
  * will be returned, unless either the <b>ENT_IGNORE</b> or
  * <b>ENT_SUBSTITUTE</b> flags are set.
  */
-function htmlentities ($string, $flags = 'ENT_COMPAT | ENT_HTML401', $encoding = 'UTF-8', $double_encode = true) {}
+function htmlentities ($string, $flags = 'ENT_COMPAT | ENT_HTML401', $encoding = "UTF-8", $double_encode = true) {}
 
 /**
  * (PHP 4 &gt;= 4.3.0, PHP 5)<br/>
@@ -533,7 +536,7 @@ function htmlentities ($string, $flags = 'ENT_COMPAT | ENT_HTML401', $encoding =
  * </p>
  * @return string the decoded string.
  */
-function html_entity_decode ($string, $flags = 'ENT_COMPAT | ENT_HTML401', $encoding = 'UTF-8') {}
+function html_entity_decode ($string, $flags = 'ENT_COMPAT | ENT_HTML401', $encoding = "UTF-8") {}
 
 /**
  * (PHP 5 &gt;= 5.1.0)<br/>
@@ -649,7 +652,7 @@ function htmlspecialchars_decode ($string, $flags = 'ENT_COMPAT | ENT_HTML401') 
  * @return array the translation table as an array, with the original characters
  * as keys and entities as values.
  */
-function get_html_translation_table ($table = 'HTML_SPECIALCHARS', $flags = 'ENT_COMPAT | ENT_HTML401', $encoding = 'UTF-8') {}
+function get_html_translation_table ($table = 'HTML_SPECIALCHARS', $flags = 'ENT_COMPAT | ENT_HTML401', $encoding = "UTF-8") {}
 
 /**
  * (PHP 4 &gt;= 4.3.0, PHP 5)<br/>
@@ -1127,7 +1130,7 @@ function phpcredits ($flag = 'CREDITS_ALL') {}
  * aolserver, apache,
  * apache2filter, apache2handler,
  * caudium, cgi (until PHP 5.3),
- * cgi-fcgi, cli,
+ * cgi-fcgi, cli, cli-server,
  * continuity, embed,
  * isapi, litespeed,
  * milter, nsapi,
@@ -2732,7 +2735,7 @@ function parse_str ($str, array &$arr = null) {}
  * </p>
  * @return array an indexed array containing the fields read.
  */
-function str_getcsv ($input, $delimiter = ',', $enclosure = '"', $escape = '\\') {}
+function str_getcsv ($input, $delimiter = ",", $enclosure = '"', $escape = "\\") {}
 
 /**
  * (PHP 4 &gt;= 4.0.1, PHP 5)<br/>
@@ -3635,9 +3638,7 @@ function base64_encode ($data) {}
  * Using the <b>PASSWORD_BCRYPT</b> for the
  * <i>algo</i> parameter, will result
  * in the <i>password</i> parameter being truncated to a
- * maximum length of 72 characters. This is only a concern if are using
- * the same salt to hash strings with this algorithm that are over 72
- * bytes in length, as this will result in those hashes being identical.
+ * maximum length of 72 characters.
  * </p>
  * @param integer $algo <p>
  * A password algorithm constant denoting the algorithm to use when hashing the password.
@@ -3683,17 +3684,17 @@ function password_get_info ($hash) {}
  * @param string $hash <p>
  * A hash created by <b>password_hash</b>.
  * </p>
- * @param string $algo <p>
+ * @param integer $algo <p>
  * A password algorithm constant denoting the algorithm to use when hashing the password.
  * </p>
- * @param string $options [optional] <p>
+ * @param array $options [optional] <p>
  * An associative array containing options. See the password algorithm constants for documentation on the supported options for each algorithm.
  * </p>
  * @return boolean <b>TRUE</b> if the hash should be rehashed to match the given
  * <i>algo</i> and <i>options</i>, or <b>FALSE</b>
  * otherwise.
  */
-function password_needs_rehash ($hash, $algo, $options = null) {}
+function password_needs_rehash ($hash, integer $algo, array $options = null) {}
 
 /**
  * (PHP 5 &gt;= 5.5.0)<br/>
@@ -4357,7 +4358,7 @@ function base_convert ($number, $frombase, $tobase) {}
  * </p>
  * @return string A formatted version of <i>number</i>.
  */
-function number_format ($number, $decimals = 0, $dec_point = '.', $thousands_sep = ',') {}
+function number_format ($number, $decimals = 0, $dec_point = ".", $thousands_sep = ",") {}
 
 /**
  * (PHP 4 &gt;= 4.2.0, PHP 5)<br/>
@@ -4619,7 +4620,7 @@ function get_current_user () {}
 function set_time_limit ($seconds) {}
 
 /**
- * (No version information available, might only be in SVN)<br/>
+ * (PHP 5 &gt;= 5.4.0)<br/>
  * Call a header function
  * @link http://php.net/manual/en/function.header-register-callback.php
  * @param callable $callback <p>
@@ -6820,7 +6821,7 @@ function copy ($source, $dest, $context = null) {}
  * The prefix of the generated temporary filename.
  * </p>
  * Windows uses only the first three characters of prefix.
- * @return string the new temporary filename, or <b>FALSE</b> on
+ * @return string the new temporary filename (with path), or <b>FALSE</b> on
  * failure.
  */
 function tempnam ($dir, $prefix) {}
@@ -7584,7 +7585,7 @@ function stream_supports_lock ($stream) {}
  * Must be greater than the longest line (in characters) to be found in
  * the CSV file (allowing for trailing line-end characters). It became
  * optional in PHP 5. Omitting this parameter (or setting it to 0 in PHP
- * 5.0.4 and later) the maximum line length is not limited, which is
+ * 5.1.0 and later) the maximum line length is not limited, which is
  * slightly slower.
  * </p>
  * @param string $delimiter [optional] <p>
@@ -7613,7 +7614,7 @@ function stream_supports_lock ($stream) {}
  * <i>handle</i> is supplied or <b>FALSE</b> on other errors,
  * including end of file.
  */
-function fgetcsv ($handle, $length = 0, $delimiter = ',', $enclosure = '"', $escape = '\\') {}
+function fgetcsv ($handle, $length = 0, $delimiter = ",", $enclosure = '"', $escape = "\\") {}
 
 /**
  * (PHP 5 &gt;= 5.1.0)<br/>
@@ -7636,7 +7637,7 @@ function fgetcsv ($handle, $length = 0, $delimiter = ',', $enclosure = '"', $esc
  * </p>
  * @return int the length of the written string or <b>FALSE</b> on failure.
  */
-function fputcsv ($handle, array $fields, $delimiter = ',', $enclosure = '"') {}
+function fputcsv ($handle, array $fields, $delimiter = ",", $enclosure = '"') {}
 
 /**
  * (PHP 4, PHP 5)<br/>
@@ -8325,9 +8326,7 @@ function get_browser ($user_agent = null, $return_array = false) {}
  * <p>
  * Using the <b>CRYPT_BLOWFISH</b> algorithm, will result
  * in the <i>str</i> parameter being truncated to a
- * maximum length of 72 characters. This is only a concern if are using
- * the same salt to hash strings with this algorithm that are over 72
- * bytes in length, as this will result in those hashes being identical.
+ * maximum length of 72 characters.
  * </p>
  * @param string $salt [optional] <p>
  * An optional salt string to base the hashing on. If not provided, the
@@ -8923,9 +8922,9 @@ function lchgrp ($filename, $group) {}
  * </p>
  * @param int $mode <p>
  * Note that <i>mode</i> is not automatically
- * assumed to be an octal value, so strings (such as "g+w") will
- * not work properly. To ensure the expected operation,
- * you need to prefix <i>mode</i> with a zero (0):
+ * assumed to be an octal value, so to ensure the expected operation,
+ * you need to prefix <i>mode</i> with a zero (0).
+ * Strings such as "g+w" will not work properly.
  * </p>
  * <p>
  * <code>
@@ -9095,7 +9094,8 @@ function realpath_cache_get () {}
  * <p>
  * This is typically used to add extra headers (From, Cc, and Bcc).
  * Multiple extra headers should be separated with a CRLF (\r\n).
- * Validate parameter not to be injected unwanted headers by attackers.
+ * If outside data are used to compose this header, the data should be sanitized
+ * so that no unwanted headers could be injected.
  * </p>
  * <p>
  * When sending mail, the mail must contain
@@ -9129,13 +9129,16 @@ function realpath_cache_get () {}
  * <p>
  * This parameter is escaped by <b>escapeshellcmd</b> internally
  * to prevent command execution. <b>escapeshellcmd</b> prevents
- * command execution, but allows to add addtional parameters. For security reason,
- * this parameter should be validated.
+ * command execution, but allows to add addtional parameters. For security reasons,
+ * it is recommended for the user to sanitize this parameter to avoid adding unwanted
+ * parameters to the shell command.
  * </p>
  * <p>
  * Since <b>escapeshellcmd</b> is applied automatically, some characters
- * that are allowed as email addresses by internet RFCs cannot be used. Programs
- * that are required to use these characters <b>mail</b> cannot be used.
+ * that are allowed as email addresses by internet RFCs cannot be used.
+ * <b>mail</b> can not allow such characters, so in programs where the use of
+ * such characters is required, alternative means of sending emails (such as using a framework
+ * or a library) is recommended.
  * </p>
  * <p>
  * The user that the webserver runs as should be added as a trusted user to the
@@ -9394,7 +9397,7 @@ function metaphone ($str, $phonemes = 0) {}
  * This is the callback signature:
  * </p>
  * <p>
- * bool<b>handler</b>
+ * string<b>handler</b>
  * <b>string<i>buffer</i></b>
  * <b>int<i>phase</i></b>
  * <i>buffer</i>
@@ -10513,12 +10516,15 @@ function array_reverse (array $array, $preserve_keys = false) {}
  * @param array $array <p>
  * The input array.
  * </p>
- * @param callable $callback <p>
- * The callback function.
- * </p>
- * mixed<b>callback</b>
- * <b>mixed<i>result</i></b>
+ * @param callable $callback mixed<b>callback</b>
+ * <b>mixed<i>carry</i></b>
  * <b>mixed<i>item</i></b>
+ * <i>carry</i>
+ * <p>
+ * Holds the return value of the previous iteration; in the case of the
+ * first iteration it instead holds the value of
+ * <i>initial</i>.
+ * </p>
  * @param mixed $initial [optional] <p>
  * If the optional <i>initial</i> is available, it will
  * be used at the beginning of the process, or as a final result in case
@@ -11011,7 +11017,10 @@ function array_filter (array $array, callable $callback = null) {}
  * @param array $array1 <p>
  * An array to run through the <i>callback</i> function.
  * </p>
- * @param array $_ [optional]
+ * @param array $_ [optional] <p>
+ * Variable list of array arguments to run through the
+ * <i>callback</i> function.
+ * </p>
  * @return array an array containing all the elements of <i>array1</i>
  * after applying the <i>callback</i> function to each one.
  */
@@ -11173,19 +11182,17 @@ function assert_options ($what, $value = null) {}
  * Second version number.
  * </p>
  * @param string $operator [optional] <p>
- * If you specify the third optional <i>operator</i>
- * argument, you can test for a particular relationship. The
- * possible operators are: &lt;,
- * lt, &lt;=,
- * le, &gt;,
- * gt, &gt;=,
- * ge, ==,
- * =, eq,
- * !=, &lt;&gt;,
- * ne respectively.
+ * If the third optional <i>operator</i> argument is
+ * specified, test for a particular relationship. The possible operators
+ * are: &lt;, lt,
+ * &lt;=, le, &gt;,
+ * gt, &gt;=, ge,
+ * ==, =, eq,
+ * !=, &lt;&gt;, ne
+ * respectively.
  * </p>
  * <p>
- * This parameter is case-sensitive, so values should be lowercase.
+ * This parameter is case-sensitive, values should be lowercase.
  * </p>
  * @return mixed By default, <b>version_compare</b> returns
  * -1 if the first version is lower than the second,
@@ -11332,6 +11339,61 @@ function output_reset_rewrite_vars () {}
  * @return string the path of the temporary directory.
  */
 function sys_get_temp_dir () {}
+
+/**
+ * (PHP 4, PHP 5)<br/>
+ * Loads a PHP extension at runtime
+ * @link http://php.net/manual/en/function.dl.php
+ * @param string $library <p>
+ * This parameter is only the filename of the
+ * extension to load which also depends on your platform. For example,
+ * the sockets extension (if compiled
+ * as a shared module, not the default!) would be called
+ * sockets.so on Unix platforms whereas it is called
+ * php_sockets.dll on the Windows platform.
+ * </p>
+ * <p>
+ * The directory where the extension is loaded from depends on your
+ * platform:
+ * </p>
+ * <p>
+ * Windows - If not explicitly set in the <i>php.ini</i>, the extension is
+ * loaded from C:\php4\extensions\ (PHP 4) or
+ * C:\php5\ (PHP 5) by default.
+ * </p>
+ * <p>
+ * Unix - If not explicitly set in the <i>php.ini</i>, the default extension
+ * directory depends on
+ * whether PHP has been built with --enable-debug
+ * or not
+ * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure. If the functionality of loading modules is not available
+ * or has been disabled (either by setting
+ * enable_dl off or by enabling safe mode
+ * in <i>php.ini</i>) an <b>E_ERROR</b> is emitted
+ * and execution is stopped. If <b>dl</b> fails because the
+ * specified library couldn't be loaded, in addition to <b>FALSE</b> an
+ * <b>E_WARNING</b> message is emitted.
+ */
+function dl ($library) {}
+
+/**
+ * (PHP 5 &gt;= 5.5.0)<br/>
+ * Sets the process title
+ * @link http://php.net/manual/en/function.cli-set-process-title.php
+ * @param string $title <p>
+ * The new title.
+ * </p>
+ * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure.
+ */
+function cli_set_process_title ($title) {}
+
+/**
+ * (PHP 5 &gt;= 5.5.0)<br/>
+ * Returns the current process title
+ * @link http://php.net/manual/en/function.cli-get-process-title.php
+ * @return string Return a string with the current process title or <b>NULL</b> on error.
+ */
+function cli_get_process_title () {}
 
 define ('CONNECTION_ABORTED', 1);
 define ('CONNECTION_NORMAL', 0);
@@ -11679,14 +11741,22 @@ define ('STREAM_CLIENT_ASYNC_CONNECT', 2);
  * @link http://php.net/manual/en/stream.constants.php
  */
 define ('STREAM_CLIENT_CONNECT', 4);
-define ('STREAM_CRYPTO_METHOD_SSLv2_CLIENT', 0);
-define ('STREAM_CRYPTO_METHOD_SSLv3_CLIENT', 1);
-define ('STREAM_CRYPTO_METHOD_SSLv23_CLIENT', 2);
-define ('STREAM_CRYPTO_METHOD_TLS_CLIENT', 3);
-define ('STREAM_CRYPTO_METHOD_SSLv2_SERVER', 4);
-define ('STREAM_CRYPTO_METHOD_SSLv3_SERVER', 5);
+define ('STREAM_CRYPTO_METHOD_ANY_CLIENT', 63);
+define ('STREAM_CRYPTO_METHOD_SSLv2_CLIENT', 3);
+define ('STREAM_CRYPTO_METHOD_SSLv3_CLIENT', 5);
+define ('STREAM_CRYPTO_METHOD_SSLv23_CLIENT', 7);
+define ('STREAM_CRYPTO_METHOD_TLS_CLIENT', 57);
+define ('STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT', 9);
+define ('STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT', 17);
+define ('STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT', 33);
+define ('STREAM_CRYPTO_METHOD_ANY_SERVER', 62);
+define ('STREAM_CRYPTO_METHOD_SSLv2_SERVER', 2);
+define ('STREAM_CRYPTO_METHOD_SSLv3_SERVER', 4);
 define ('STREAM_CRYPTO_METHOD_SSLv23_SERVER', 6);
-define ('STREAM_CRYPTO_METHOD_TLS_SERVER', 7);
+define ('STREAM_CRYPTO_METHOD_TLS_SERVER', 56);
+define ('STREAM_CRYPTO_METHOD_TLSv1_0_SERVER', 8);
+define ('STREAM_CRYPTO_METHOD_TLSv1_1_SERVER', 16);
+define ('STREAM_CRYPTO_METHOD_TLSv1_2_SERVER', 32);
 
 /**
  * Used with <b>stream_socket_shutdown</b> to disable
@@ -12303,6 +12373,8 @@ define ('CASE_LOWER', 0);
 define ('CASE_UPPER', 1);
 define ('COUNT_NORMAL', 0);
 define ('COUNT_RECURSIVE', 1);
+define ('ARRAY_FILTER_USE_BOTH', 1);
+define ('ARRAY_FILTER_USE_KEY', 2);
 define ('ASSERT_ACTIVE', 1);
 define ('ASSERT_CALLBACK', 2);
 define ('ASSERT_BAIL', 3);
@@ -12625,5 +12697,5 @@ define ('DNS_ANY', 268435456);
  */
 define ('DNS_ALL', 251713587);
 
-// End of standard v.5.5.3-1ubuntu2.1
+// End of standard v.5.6.0RC2
 ?>

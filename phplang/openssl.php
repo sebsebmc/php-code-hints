@@ -2,6 +2,46 @@
 
 // Start of openssl v.
 
+function openssl_get_cert_locations () {}
+
+/**
+ * (PHP 5 &gt;= 5.6.0)<br/>
+ * Generate a new signed public key and challenge
+ * @link http://php.net/manual/en/function.openssl-spki-new.php
+ * @param $privkey
+ * @param $challenge
+ * @param $algo [optional]
+ * @return mixed a signed public key and challenge string or NULL on failure.
+ */
+function openssl_spki_new ($privkey, $challenge, $algo) {}
+
+/**
+ * (PHP 5 &gt;= 5.6.0)<br/>
+ * Verifies a signed public key and challenge
+ * @link http://php.net/manual/en/function.openssl-spki-verify.php
+ * @param $spki
+ * @return mixed a boolean on success or failure.
+ */
+function openssl_spki_verify ($spki) {}
+
+/**
+ * (PHP 5 &gt;= 5.6.0)<br/>
+ * Exports a valid PEM formatted public key signed public key and challenge
+ * @link http://php.net/manual/en/function.openssl-spki-export.php
+ * @param $spki
+ * @return mixed the associated PEM formatted public key or NULL on failure.
+ */
+function openssl_spki_export ($spki) {}
+
+/**
+ * (PHP 5 &gt;= 5.6.0)<br/>
+ * Exports the challenge assoicated with a signed public key and challenge
+ * @link http://php.net/manual/en/function.openssl-spki-export-challenge.php
+ * @param $spki
+ * @return mixed the associated challenge string or NULL on failure.
+ */
+function openssl_spki_export_challenge ($spki) {}
+
 /**
  * (PHP 4 &gt;= 4.2.0, PHP 5)<br/>
  * Frees a private key
@@ -274,6 +314,13 @@ function openssl_x509_check_private_key ($cert, $key) {}
  * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure.
  */
 function openssl_x509_export ($x509, &$output, $notext = '&true;') {}
+
+/**
+ * @param $x509
+ * @param $method [optional]
+ * @param $raw_output [optional]
+ */
+function openssl_x509_fingerprint ($x509, $method, $raw_output) {}
 
 /**
  * (PHP 4 &gt;= 4.2.0, PHP 5)<br/>
@@ -602,7 +649,7 @@ function openssl_decrypt ($data, $method, $password, $options = 0, $iv = "") {}
  * Gets the cipher iv length
  * @link http://php.net/manual/en/function.openssl-cipher-iv-length.php
  * @param string $method <p>
- * The method.
+ * The cipher method, see <b>openssl_get_cipher_methods</b> for a list of potential values.
  * </p>
  * @return int the cipher length on success, or <b>FALSE</b> on failure.
  */
@@ -964,8 +1011,8 @@ function openssl_random_pseudo_bytes ($length, &$crypto_strong = null) {}
  */
 function openssl_error_string () {}
 
-define ('OPENSSL_VERSION_TEXT', "OpenSSL 1.0.1e 11 Feb 2013");
-define ('OPENSSL_VERSION_NUMBER', 268439647);
+define ('OPENSSL_VERSION_TEXT', "OpenSSL 1.0.1f 6 Jan 2014");
+define ('OPENSSL_VERSION_NUMBER', 268439663);
 define ('X509_PURPOSE_SSL_CLIENT', 1);
 define ('X509_PURPOSE_SSL_SERVER', 2);
 define ('X509_PURPOSE_NS_SSL_SERVER', 3);
@@ -1074,6 +1121,7 @@ define ('OPENSSL_PKCS1_PADDING', 1);
 define ('OPENSSL_SSLV23_PADDING', 2);
 define ('OPENSSL_NO_PADDING', 3);
 define ('OPENSSL_PKCS1_OAEP_PADDING', 4);
+define ('OPENSSL_DEFAULT_STREAM_CIPHERS', "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128:AES256:HIGH:!SSLv2:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!RC4:!ADH");
 define ('OPENSSL_CIPHER_RC2_40', 0);
 define ('OPENSSL_CIPHER_RC2_128', 1);
 define ('OPENSSL_CIPHER_RC2_64', 2);

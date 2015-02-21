@@ -1,6 +1,6 @@
 <?php
 
-// Start of Reflection v.$Id: b1f7484f243ca1baeb64560b43b1927e7279dc80 $
+// Start of Reflection v.$Id: 703e14113f05c361a7257390f119030d32900b40 $
 
 /**
  * The ReflectionException class.
@@ -235,6 +235,8 @@ class ReflectionFunctionAbstract implements Reflector {
 	 * on failure.
 	 */
 	public function isGenerator () {}
+
+	public function isVariadic () {}
 
 	/**
 	 * (PHP &gt;= 5.4.0)<br/>
@@ -509,6 +511,8 @@ class ReflectionFunction extends ReflectionFunctionAbstract implements Reflector
 	 * on failure.
 	 */
 	public function isGenerator () {}
+
+	public function isVariadic () {}
 
 	/**
 	 * (PHP &gt;= 5.4.0)<br/>
@@ -820,6 +824,8 @@ class ReflectionParameter implements Reflector {
 	 */
 	public function getDefaultValueConstantName () {}
 
+	public function isVariadic () {}
+
 }
 
 /**
@@ -1082,6 +1088,8 @@ class ReflectionMethod extends ReflectionFunctionAbstract implements Reflector {
 	 * on failure.
 	 */
 	public function isGenerator () {}
+
+	public function isVariadic () {}
 
 	/**
 	 * (PHP &gt;= 5.4.0)<br/>
@@ -2631,5 +2639,5 @@ class ReflectionZendExtension implements Reflector {
 	public function getCopyright () {}
 
 }
-// End of Reflection v.$Id: b1f7484f243ca1baeb64560b43b1927e7279dc80 $
+// End of Reflection v.$Id: 703e14113f05c361a7257390f119030d32900b40 $
 ?>

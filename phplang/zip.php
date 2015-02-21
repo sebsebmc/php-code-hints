@@ -1,6 +1,6 @@
 <?php
 
-// Start of zip v.1.11.0
+// Start of zip v.1.12.4
 
 /**
  * A file archive, compressed with Zip.
@@ -279,6 +279,32 @@ class ZipArchive  {
 	const ER_DELETED = 23;
 
 	/**
+	 * Since PHP 5.6.0, PECL zip 1.12.4
+	 * @link http://php.net/manual/en/zip.constants.php
+	 */
+	const OPSYS_DOS = 0;
+	const OPSYS_AMIGA = 1;
+	const OPSYS_OPENVMS = 2;
+	const OPSYS_UNIX = 3;
+	const OPSYS_VM_CMS = 4;
+	const OPSYS_ATARI_ST = 5;
+	const OPSYS_OS_2 = 6;
+	const OPSYS_MACINTOSH = 7;
+	const OPSYS_Z_SYSTEM = 8;
+	const OPSYS_Z_CPM = 9;
+	const OPSYS_WINDOWS_NTFS = 10;
+	const OPSYS_MVS = 11;
+	const OPSYS_VSE = 12;
+	const OPSYS_ACORN_RISC = 13;
+	const OPSYS_VFAT = 14;
+	const OPSYS_ALTERNATE_MVS = 15;
+	const OPSYS_BEOS = 16;
+	const OPSYS_TANDEM = 17;
+	const OPSYS_OS_400 = 18;
+	const OPSYS_OS_X = 19;
+	const OPSYS_DEFAULT = 3;
+
+	/**
 	 * <p style="margin-top:0;">Status of the Zip Archive</p>
 	 * @var int
 	 */
@@ -377,6 +403,11 @@ class ZipArchive  {
 	 * </p>
 	 */
 	public function open ($filename, $flags = null) {}
+
+	/**
+	 * @param $password
+	 */
+	public function setPassword ($password) {}
 
 	/**
 	 * (PHP 5 &gt;= 5.2.0, PECL zip &gt;= 1.1.0)<br/>
@@ -480,7 +511,7 @@ class ZipArchive  {
 	 * </p>
 	 * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure.
 	 */
-	public function addPattern ($pattern, $path = '.', array $options = 'array()') {}
+	public function addPattern ($pattern, $path = ".", array $options = 'array()') {}
 
 	/**
 	 * (PHP 5 &gt;= 5.2.0, PECL zip &gt;= 1.5.0)<br/>
@@ -755,7 +786,7 @@ class ZipArchive  {
 	public function getFromName ($name, $length = 0, $flags = null) {}
 
 	/**
-	 * (PHP 5 &gt;= 5.2.0, PECL zip &gt;= 1.3.0)<br/>
+	 * (No version information available, might only be in Git)<br/>
 	 * Returns the entry contents using its index
 	 * @link http://php.net/manual/en/ziparchive.getfromindex.php
 	 * @param int $index <p>
@@ -785,6 +816,88 @@ class ZipArchive  {
 	 * @return resource a file pointer (resource) on success or <b>FALSE</b> on failure.
 	 */
 	public function getStream ($name) {}
+
+	/**
+	 * (PHP 5 &gt;= 5.6.0, PECL zip &gt;= 1.12.4)<br/>
+	 * Set the external attributes of an entry defined by its name
+	 * @link http://php.net/manual/en/ziparchive.setexternalattributesname.php
+	 * @param string $name <p>
+	 * Name of the entry.
+	 * </p>
+	 * @param int $opsys <p>
+	 * The operating system code defined by one of the ZipArchive::OPSYS_ constants.
+	 * </p>
+	 * @param int $attr <p>
+	 * The external attributes. Value depends on operating system.
+	 * </p>
+	 * @param int $flags [optional] <p>
+	 * Optional flags. Currently unused.
+	 * </p>
+	 * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure.
+	 */
+	public function setExternalAttributesName ($name, $opsys, $attr, $flags = null) {}
+
+	/**
+	 * (PHP 5 &gt;= 5.6.0, PECL zip &gt;= 1.12.4)<br/>
+	 * Set the external attributes of an entry defined by its index
+	 * @link http://php.net/manual/en/ziparchive.setexternalattributesindex.php
+	 * @param int $index <p>
+	 * Index of the entry.
+	 * </p>
+	 * @param int $opsys <p>
+	 * The operating system code defined by one of the ZipArchive::OPSYS_ constants.
+	 * </p>
+	 * @param int $attr <p>
+	 * The external attributes. Value depends on operating system.
+	 * </p>
+	 * @param int $flags [optional] <p>
+	 * Optional flags. Currently unused.
+	 * </p>
+	 * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure.
+	 */
+	public function setExternalAttributesIndex ($index, $opsys, $attr, $flags = null) {}
+
+	/**
+	 * (PHP 5 &gt;= 5.6.0, PECL zip &gt;= 1.12.4)<br/>
+	 * Retrieve the external attributes of an entry defined by its name
+	 * @link http://php.net/manual/en/ziparchive.getexternalattributesname.php
+	 * @param string $name <p>
+	 * Name of the entry.
+	 * </p>
+	 * @param int $opsys <p>
+	 * On success, receive the operating system code defined by one of the ZipArchive::OPSYS_ constants.
+	 * </p>
+	 * @param int $attr <p>
+	 * On success, receive the external attributes. Value depends on operating system.
+	 * </p>
+	 * @param int $flags [optional] <p>
+	 * If flags is set to <b>ZipArchive::FL_UNCHANGED</b>, the original unchanged
+	 * attributes are returned.
+	 * </p>
+	 * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure.
+	 */
+	public function getExternalAttributesName ($name, &$opsys, &$attr, $flags = null) {}
+
+	/**
+	 * (PHP 5 &gt;= 5.6.0, PECL zip &gt;= 1.12.4)<br/>
+	 * Retrieve the external attributes of an entry defined by its index
+	 * @link http://php.net/manual/en/ziparchive.getexternalattributesindex.php
+	 * @param int $index <p>
+	 * Index of the entry.
+	 * </p>
+	 * @param int $opsys <p>
+	 * On success, receive the operating system code defined by one of the ZipArchive::OPSYS_ constants.
+	 * </p>
+	 * @param int $attr <p>
+	 * On success, receive the external attributes. Value depends on operating system.
+	 * </p>
+	 * @param int $flags [optional] <p>
+	 * If flags is set to <b>ZipArchive::FL_UNCHANGED</b>, the original unchanged
+	 * attributes are returned.
+	 * </p>
+	 * @return bool <b>TRUE</b> on success or <b>FALSE</b> on failure.
+	 */
+	public function getExternalAttributesIndex ($index, &$opsys, &$attr, $flags = null) {}
 
 }
 
@@ -928,5 +1041,5 @@ function zip_entry_compressedsize ($zip_entry) {}
  */
 function zip_entry_compressionmethod ($zip_entry) {}
 
-// End of zip v.1.11.0
+// End of zip v.1.12.4
 ?>

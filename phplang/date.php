@@ -1,396 +1,374 @@
 <?php
 
-/**
- * Representation of date and time.
- *
- * @since 5.2.0
- */
-class DateTime  {
+// Start of date v.5.6.0RC2
+
+interface DateTimeInterface  {
+
+	/**
+	 * @param $format
+	 */
+	abstract public function format ($format);
+
+	abstract public function getTimezone ();
+
+	abstract public function getOffset ();
+
+	abstract public function getTimestamp ();
+
+	/**
+	 * @param $object
+	 * @param $absolute [optional]
+	 */
+	abstract public function diff ($object, $absolute);
+
+	abstract public function __wakeup ();
+
+}
+
+class DateTime implements DateTimeInterface {
+	const ATOM = "Y-m-d\TH:i:sP";
+	const COOKIE = "l, d-M-Y H:i:s T";
+	const ISO8601 = "Y-m-d\TH:i:sO";
+	const RFC822 = "D, d M y H:i:s O";
+	const RFC850 = "l, d-M-y H:i:s T";
+	const RFC1036 = "D, d M y H:i:s O";
+	const RFC1123 = "D, d M Y H:i:s O";
+	const RFC2822 = "D, d M Y H:i:s O";
+	const RFC3339 = "Y-m-d\TH:i:sP";
+	const RSS = "D, d M Y H:i:s O";
+	const W3C = "Y-m-d\TH:i:sP";
 
 
-  // ------------------------------------------------------------------------------------------------------------------- Constants
+	/**
+	 * @param $time [optional]
+	 * @param $object [optional]
+	 */
+	public function __construct ($time, $object) {}
 
+	public function __wakeup () {}
 
-  const ATOM = "Y-m-d\TH:i:sP";
-  const COOKIE = "l, d-M-y H:i:s T";
-  const ISO8601 = "Y-m-d\TH:i:sO";
-  const RFC822 = "D, d M y H:i:s O";
-  const RFC850 = "l, d-M-y H:i:s T";
-  const RFC1036 = "D, d M y H:i:s O";
-  const RFC1123 = "D, d M Y H:i:s O";
-  const RFC2822 = "D, d M Y H:i:s O";
-  const RFC3339 = "Y-m-d\TH:i:sP";
-  const RSS = "D, d M Y H:i:s O";
-  const W3C = "Y-m-d\TH:i:sP";
+	public static function __set_state () {}
 
+	/**
+	 * @param $format
+	 * @param $time
+	 * @param $object [optional]
+	 */
+	public static function createFromFormat ($format, $time, $object) {}
 
-  // ------------------------------------------------------------------------------------------------------------------- Magic Methods
+	public static function getLastErrors () {}
 
+	/**
+	 * @param $format
+	 */
+	public function format ($format) {}
 
-  /**
-   * Instantiate new DateTime object.
-   *
-   * @link http://php.net/datetime.construct.php
-   * @param string $time [optional]
-   *   A date/time string. Valid formats are explained in {@link http://www.php.net/manual/en/datetime.formats.php Date
-   *   and Time Formats}. Enter <code>NULL</code> here to obtain the current time when using the <var>$timezone</var>
-   *   parameter.
-   * @param \DateTimeZone $timezone [optional]
-   *   A {@see \DateTimeZone} object representing the timezone of <var>$time</var>. If <var>$timezone</var> is omitted,
-   *   the current timezone will be used.<br>
-   *   <b>NOTE:</b> The <var>$timezone</var> parameter and the current timezone are ignored when the <var>$time</var>
-   *   parameter either is a UNIX timestamp (e.g. <code>"@946684800"</code>) or specifies a timezone (e.g.
-   *   <code>"2010-01-28T15:00:00+02:00"</code>).
-   * @throws \Exception
-   * @since 5.2.0
-   */
-  public function __construct($time = "now", \DateTimeZone $timezone = null);
+	/**
+	 * @param $modify
+	 */
+	public function modify ($modify) {}
 
-  /**
-   * The <code>__set_state</code> handler.
-   *
-   * @link http://php.net/datetime.set-state.php
-   * @link http://php.net/language.oop5.magic.php#object.set-state
-   */
-  public function __set_state();
+	/**
+	 * @param $interval
+	 */
+	public function add ($interval) {}
 
-  /**
-   * The <code>__wakeup</code> handler.
-   *
-   * @link http://php.net/datetime.wakeup.php
-   */
-  public function __wakeup();
+	/**
+	 * @param $interval
+	 */
+	public function sub ($interval) {}
 
+	public function getTimezone () {}
 
-  // ------------------------------------------------------------------------------------------------------------------- Static Methods
+	/**
+	 * @param $timezone
+	 */
+	public function setTimezone ($timezone) {}
 
+	public function getOffset () {}
 
-  /**
-   * Create new {@see \DateTime} instance from the specified format.
-   *
-   * @param string $format
-   *   The format of <var>$time</var>.
-   * @param string $time
-   *   String representing the time.
-   * @param \DateTimeZone $timezone [optional]
-   *   A {@see \DateTimeZone} representing the desired time zone, defaults to <code>NULL</code>. If omitted (default)
-   *   and <var>$time</var> contains no timezone, the current timezone will be used.
-   * @return \DateTime
-   *   Returns a new {@see \DateTime} instance or <code>FALSE</code> on failure.
-   */
-  public static function createFromFormat ($format, $time, \DateTimeZone $timezone = null);
+	/**
+	 * @param $hour
+	 * @param $minute
+	 * @param $second [optional]
+	 */
+	public function setTime ($hour, $minute, $second) {}
 
-  public static function getLastErrors () {}
+	/**
+	 * @param $year
+	 * @param $month
+	 * @param $day
+	 */
+	public function setDate ($year, $month, $day) {}
 
+	/**
+	 * @param $year
+	 * @param $week
+	 * @param $day [optional]
+	 */
+	public function setISODate ($year, $week, $day) {}
 
-  // ------------------------------------------------------------------------------------------------------------------- Methods
+	/**
+	 * @param $unixtimestamp
+	 */
+	public function setTimestamp ($unixtimestamp) {}
 
+	public function getTimestamp () {}
 
-  /**
-   * Add given interval.
-   *
-   * @link http://php.net/datetime.add.php
-   * @see date_add()
-   * @param \DateInterval $interval
-   *   The interval to add.
-   * @return this|boolean
-   *   <var>$this</var> for chaining or <code>FALSE</code> on failure.
-   * @since 5.3.0
-   */
-  public function add(\DateInterval $interval) {}
+	/**
+	 * @param $object
+	 * @param $absolute [optional]
+	 */
+	public function diff ($object, $absolute) {}
 
-  /**
-   * Get the difference between two {@see \DateTime} objects.
-   *
-   * @param \DateTime $dateTime
-   *   The date to compare to.
-   * @param boolean $absolute [optional]
-   *   Should the interval be forced to be positive?
-   * @return \DateInterval
-   *   The {@see \DateInterval} object representing the difference between the two dates or <code>FALSE</code> on
-   *   failure.
-   */
-  public function diff ($dateTime, $absolute = false) {}
+}
 
-  /**
-   * Substract given interval.
-   *
-   * @link http://php.net/datetime.sub.php
-   * @see date_sub()
-   * @param \DateInterval $interval
-   *   The interval to substract.
-   * @return this|boolean
-   *   <var>$this</var> for chaining or <code>FALSE</code> on failure.
-   * @since 5.3.0
-   */
-  public function sub(\DateInterval $interval) {}
+class DateTimeImmutable implements DateTimeInterface {
 
-  /**
-   * @param $format
-   */
-  public function format ($format) {}
+	/**
+	 * @param $time [optional]
+	 * @param $object [optional]
+	 */
+	public function __construct ($time, $object) {}
 
-  /**
-   * @param $modify
-   */
-  public function modify ($modify) {}
+	public function __wakeup () {}
 
-  public function getTimezone () {}
+	public static function __set_state () {}
 
-  /**
-   * @param $timezone
-   */
-  public function setTimezone ($timezone) {}
+	/**
+	 * @param $format
+	 * @param $time
+	 * @param $object [optional]
+	 */
+	public static function createFromFormat ($format, $time, $object) {}
 
-  public function getOffset () {}
+	public static function getLastErrors () {}
 
-  /**
-   * @param $hour
-   * @param $minute
-   * @param $second [optional]
-   */
-  public function setTime ($hour, $minute, $second) {}
+	/**
+	 * @param $format
+	 */
+	public function format ($format) {}
 
-  /**
-   * @param $year
-   * @param $month
-   * @param $day
-   */
-  public function setDate ($year, $month, $day) {}
+	public function getTimezone () {}
 
-  /**
-   * @param $year
-   * @param $week
-   * @param $day [optional]
-   */
-  public function setISODate ($year, $week, $day) {}
+	public function getOffset () {}
 
-  /**
-   * @param $unixtimestamp
-   */
-  public function setTimestamp ($unixtimestamp) {}
+	public function getTimestamp () {}
 
-  public function getTimestamp () {}
+	/**
+	 * @param $object
+	 * @param $absolute [optional]
+	 */
+	public function diff ($object, $absolute) {}
+
+	/**
+	 * @param $modify
+	 */
+	public function modify ($modify) {}
+
+	/**
+	 * @param $interval
+	 */
+	public function add ($interval) {}
+
+	/**
+	 * @param $interval
+	 */
+	public function sub ($interval) {}
+
+	/**
+	 * @param $timezone
+	 */
+	public function setTimezone ($timezone) {}
+
+	/**
+	 * @param $hour
+	 * @param $minute
+	 * @param $second [optional]
+	 */
+	public function setTime ($hour, $minute, $second) {}
+
+	/**
+	 * @param $year
+	 * @param $month
+	 * @param $day
+	 */
+	public function setDate ($year, $month, $day) {}
+
+	/**
+	 * @param $year
+	 * @param $week
+	 * @param $day [optional]
+	 */
+	public function setISODate ($year, $week, $day) {}
+
+	/**
+	 * @param $unixtimestamp
+	 */
+	public function setTimestamp ($unixtimestamp) {}
+
+	/**
+	 * @param $DateTime
+	 */
+	public static function createFromMutable ($DateTime) {}
 
 }
 
 class DateTimeZone  {
-  const AFRICA = 1;
-  const AMERICA = 2;
-  const ANTARCTICA = 4;
-  const ARCTIC = 8;
-  const ASIA = 16;
-  const ATLANTIC = 32;
-  const AUSTRALIA = 64;
-  const EUROPE = 128;
-  const INDIAN = 256;
-  const PACIFIC = 512;
-  const UTC = 1024;
-  const ALL = 2047;
-  const ALL_WITH_BC = 4095;
-  const PER_COUNTRY = 4096;
+	const AFRICA = 1;
+	const AMERICA = 2;
+	const ANTARCTICA = 4;
+	const ARCTIC = 8;
+	const ASIA = 16;
+	const ATLANTIC = 32;
+	const AUSTRALIA = 64;
+	const EUROPE = 128;
+	const INDIAN = 256;
+	const PACIFIC = 512;
+	const UTC = 1024;
+	const ALL = 2047;
+	const ALL_WITH_BC = 4095;
+	const PER_COUNTRY = 4096;
 
 
-  /**
-   * @param $timezone
-   */
-  public function __construct ($timezone) {}
+	/**
+	 * @param $timezone
+	 */
+	public function __construct ($timezone) {}
 
-  public function getName () {}
+	public function __wakeup () {}
 
-  /**
-   * @param $datetime
-   */
-  public function getOffset ($datetime) {}
+	public static function __set_state () {}
 
-  /**
-   * @param $timestamp_begin
-   * @param $timestamp_end
-   */
-  public function getTransitions ($timestamp_begin, $timestamp_end) {}
+	public function getName () {}
 
-  public function getLocation () {}
+	/**
+	 * @param $datetime
+	 */
+	public function getOffset ($datetime) {}
 
-  /**
-   * Get all time zones with extended information about each one as associative array.
-   *
-   * @link http://php.net/datetimezone.listabbreviations.php
-   * @return array|boolean
-   *   Array on success or <code>FALSE</code> on failure.
-   * @since 5.2.0
-   */
-  public static function listAbbreviations () {}
+	/**
+	 * @param $timestamp_begin
+	 * @param $timestamp_end
+	 */
+	public function getTransitions ($timestamp_begin, $timestamp_end) {}
 
-  /**
-   * Get all time zone identifiers.
-   *
-   * @link http://php.net/function.timezone-identifiers-list.php
-   * @param int $what [optional]
-   *   One of {@see \DateTimeZone} class constants.
-   * @param string $country [optional]
-   *   A two-letter ISO 3166-1 compatible country code. Note that this parameter is only used if <var>$what</var> is set
-   *   to {@see \DateTimeZone::PER_COUNTRY}.
-   * @return array|boolean
-   *   Numeric array containing all time zone identifiers, or <code>FALSE</code> on failure.
-   * @since 5.2.0
-   */
-  public static function listIdentifiers($what = self::ALL, $country = null) {}
+	public function getLocation () {}
+
+	public static function listAbbreviations () {}
+
+	/**
+	 * @param $what [optional]
+	 * @param $country [optional]
+	 */
+	public static function listIdentifiers ($what, $country) {}
 
 }
 
-/**
- * Represents a date interval.
- *
- * A date interval stores either a fixed amount of time (in years, months, days, hours, etc.) or a relative time string
- * in the format that {@see \DateTime}'s constructor supports.
- *
- * @since 5.3.0
- */
 class DateInterval  {
+	/**
+	 * <p style="margin-top:0;">
+	 * Number of years.
+	 * </p>
+	 * @var integer
+	 */
+	public $y;
+	/**
+	 * <p style="margin-top:0;">
+	 * Number of months.
+	 * </p>
+	 * @var integer
+	 */
+	public $m;
+	/**
+	 * <p style="margin-top:0;">
+	 * Number of days.
+	 * </p>
+	 * @var integer
+	 */
+	public $d;
+	/**
+	 * <p style="margin-top:0;">
+	 * Number of hours.
+	 * </p>
+	 * @var integer
+	 */
+	public $h;
+	/**
+	 * <p style="margin-top:0;">
+	 * Number of minutes.
+	 * </p>
+	 * @var integer
+	 */
+	public $i;
+	/**
+	 * <p style="margin-top:0;">
+	 * Number of seconds.
+	 * </p>
+	 * @var integer
+	 */
+	public $s;
+	/**
+	 * <p style="margin-top:0;">
+	 * Is 1 if the interval
+	 * represents a negative time period and
+	 * 0 otherwise.
+	 * See <b>DateInterval::format()</b>.
+	 * </p>
+	 * @var integer
+	 */
+	public $invert;
+	/**
+	 * <p style="margin-top:0;">
+	 * If the DateInterval object was created by
+	 * <b>DateTime::diff()</b>, then this is the total number of
+	 * days between the start and end dates. Otherwise,
+	 * days will be <b><code>FALSE</code></b>.
+	 * </p>
+	 * <p>
+	 * Before PHP 5.4.20/5.5.4 instead of <b><code>FALSE</code></b> you will receive -99999 upon
+	 * accessing the property.
+	 * </p>
+	 * @var mixed
+	 */
+	public $days;
 
 
-  // ------------------------------------------------------------------------------------------------------------------- Properties
+	/**
+	 * @param $interval_spec [optional]
+	 */
+	public function __construct ($interval_spec) {}
 
+	public function __wakeup () {}
 
-  /**
-   * Number of years.
-   *
-   * @var integer
-   */
-  public $y;
+	public static function __set_state () {}
 
-  /**
-   * Number of months.
-   *
-   * @var integer
-   */
-  public $m;
+	/**
+	 * @param $format
+	 */
+	public function format ($format) {}
 
-  /**
-   * Number of days.
-   *
-   * @var integer
-   */
-  public $d;
-
-  /**
-   * Number of hours.
-   *
-   * @var integer
-   */
-  public $h;
-
-  /**
-   * Number of minutes.
-   *
-   * @var integer
-   */
-  public $i;
-
-  /**
-   * Number of seconds.
-   *
-   * @var integer
-   */
-  public $s;
-
-  /**
-   * Is <code>1</code> if the interval represents a negative time period and <code>0</code> otherwise.
-   *
-   * @see \DateInterval::format
-   * @var integer
-   */
-  public $invert;
-
-  /**
-   * If the DateInterval object was created by {@see \DateTime::diff}, then this is the total number of days between the
-   * start and end dates. Otherwise, days will be <code>FALSE</code>.
-   *
-   * @var boolean|integer
-   */
-  public $days;
-
-
-  // ------------------------------------------------------------------------------------------------------------------- Magic Methods
-
-
-  /**
-   * Instantiate new date interval.
-   *
-   * The interval specification starts with the letter <code>P</code> (for <i>period</i>). Each duration perios is
-   * represented by an integer value followed by a period designator. If the duration contains time elements, that
-   * portion of the specification is preceded by the letter <code>T</code>.
-   *
-   * <table border="1" cellspacing="0">
-   *   <tr><th>Period Designator</th><th>Description</th></tr>
-   *   <tr><td><code>"Y"</code></td><td>years</td></tr>
-   *   <tr><td><code>"M"</code></td><td>months</td></tr>
-   *   <tr><td><code>"D"</code></td><td>days</td></tr>
-   *   <tr><td><code>"W"</code></td><td>weeks (these get converted into days and therefor cannot be combined with
-   *   <code>"D"</code></td></tr>
-   *   <tr><td><code>"H"</code></td><td>hours</td></tr>
-   *   <tr><td><code>"M"</code></td><td>minutes</td></tr>
-   *   <tr><td><code>"S"</code></td><td>seconds</td></tr>
-   * </table>
-   *
-   * The specification can also be represented as a date time. A sample of one year and four days would be
-   * <code>"P0001-00-04T00:00:00"</code>. But the values in this format can not exceed a given period's roll-over-point
-   * (e.g. 25 hours is invalid).
-   *
-   * These formats are based on the {@link http://en.wikipedia.org/wiki/Iso8601#Durations ISO 8601 duration specification}.
-   *
-   * <b>Examples</b>
-   *
-   * <ul>
-   *   <li><code>"P2D"</code> is two days</li>
-   *   <li><code>"PT2S"</code> is two seconds</li>
-   *   <li><code>"P6YT5M"</code> is six years and five minutes</li>
-   * </ul>
-   *
-   * <b>Note</b>
-   *
-   * The unit types must be entered from the largest scale unit on the left to the smallest scale unit on the right. So
-   * years before months, months before days, days before minutes, etc. Thus one year and four days must be represented
-   * as <code>"P1Y4D"</code>, not <code>"P4D1Y"</code>.
-   *
-   * @link http://php.net/dateinterval.construct.php
-   * @link http://en.wikipedia.org/wiki/Iso8601#Durations
-   * @param string $interval_spec [optional]
-   *   The interval specification.
-   * @since 5.3.0
-   */
-  public function __construct($interval_spec) {}
-
-  public function __wakeup () {}
-
-  public static function __set_state () {}
-
-
-  // ------------------------------------------------------------------------------------------------------------------- Methods
-
-
-  /**
-   * @param $format
-   */
-  public function format ($format) {}
-
-  /**
-   * @param $time
-   */
-  public static function createFromDateString ($time) {}
+	/**
+	 * @param $time
+	 */
+	public static function createFromDateString ($time) {}
 
 }
 
 class DatePeriod implements Traversable {
-  const EXCLUDE_START_DATE = 1;
+	const EXCLUDE_START_DATE = 1;
 
 
-  /**
-   * @param $start
-   * @param $interval
-   * @param $end
-   */
-  public function __construct ($start, $interval, $end) {}
+	/**
+	 * @param $start
+	 * @param $interval
+	 * @param $end
+	 */
+	public function __construct ($start, $interval, $end) {}
+
+	public function __wakeup () {}
+
+	public static function __set_state () {}
 
 }
 
@@ -1352,6 +1330,15 @@ function getdate ($timestamp = 'time()') {}
 function date_create ($time, $object) {}
 
 /**
+ * (PHP 5 &gt;= 5.5.0)<br/>
+ * Alias of <b>DateTimeImmutable::__construct</b>
+ * @link http://php.net/manual/en/function.date-create-immutable.php
+ * @param $time [optional]
+ * @param $object [optional]
+ */
+function date_create_immutable ($time, $object) {}
+
+/**
  * (PHP 5 &gt;= 5.3.0)<br/>
  * Alias of <b>DateTime::createFromFormat</b>
  * @link http://php.net/manual/en/function.date-create-from-format.php
@@ -1360,6 +1347,16 @@ function date_create ($time, $object) {}
  * @param $object [optional]
  */
 function date_create_from_format ($format, $time, $object) {}
+
+/**
+ * (PHP 5 &gt;= 5.5.0)<br/>
+ * Alias of <b>DateTimeImmutable::createFromFormat</b>
+ * @link http://php.net/manual/en/function.date-create-immutable-from-format.php
+ * @param $format
+ * @param $time
+ * @param $object [optional]
+ */
+function date_create_immutable_from_format ($format, $time, $object) {}
 
 /**
  * (PHP 5 &gt;= 5.2.0)<br/>
@@ -1587,19 +1584,13 @@ function timezone_transitions_get ($object, $timestamp_begin, $timestamp_end) {}
 function timezone_location_get ($object) {}
 
 /**
- * Get all time zone identifiers.
- *
- * @link http://php.net/function.timezone-identifiers-list.php
- * @param int $what [optional]
- *   One of {@see \DateTimeZone} class constants.
- * @param string $country [optional]
- *   A two-letter ISO 3166-1 compatible country code. Note that this parameter is only used if <var>$what</var> is set
- *   to {@see \DateTimeZone::PER_COUNTRY}.
- * @return array|boolean
- *   Numeric array containing all time zone identifiers, or <code>FALSE</code> on failure.
- * @since 5.2.0
+ * (PHP 5 &gt;= 5.2.0)<br/>
+ * Alias of <b>DateTimeZone::listIdentifiers</b>
+ * @link http://php.net/manual/en/function.timezone-identifiers-list.php
+ * @param $what [optional]
+ * @param $country [optional]
  */
-function timezone_identifiers_list($what = \DateTimeZone::ALL, $country = null) {}
+function timezone_identifiers_list ($what, $country) {}
 
 /**
  * (PHP 5 &gt;= 5.2.0)<br/>
@@ -1774,7 +1765,7 @@ function date_sunset ($timestamp, $format = 'SUNFUNCS_RET_STRING', $latitude = '
 function date_sun_info ($time, $latitude, $longitude) {}
 
 define ('DATE_ATOM', "Y-m-d\TH:i:sP");
-define ('DATE_COOKIE', "l, d-M-y H:i:s T");
+define ('DATE_COOKIE', "l, d-M-Y H:i:s T");
 define ('DATE_ISO8601', "Y-m-d\TH:i:sO");
 define ('DATE_RFC822', "D, d M y H:i:s O");
 define ('DATE_RFC850', "l, d-M-y H:i:s T");
@@ -1803,5 +1794,5 @@ define ('SUNFUNCS_RET_STRING', 1);
  */
 define ('SUNFUNCS_RET_DOUBLE', 2);
 
-// End of date v.5.4.9-4ubuntu2.2
+// End of date v.5.6.0RC2
 ?>

@@ -78,12 +78,12 @@ function gzgetc ($zp) {}
  * The gz-file pointer. It must be valid, and must point to a file
  * successfully opened by <b>gzopen</b>.
  * </p>
- * @param int $length <p>
+ * @param int $length [optional] <p>
  * The length of data to get.
  * </p>
  * @return string The uncompressed string, or <b>FALSE</b> on error.
  */
-function gzgets ($zp, $length) {}
+function gzgets ($zp, $length = null) {}
 
 /**
  * (PHP 4, PHP 5)<br/>
@@ -100,7 +100,7 @@ function gzgets ($zp, $length) {}
  * You can use this optional parameter to specify tags which should not
  * be stripped.
  * </p>
- * @return string The uncompressed and striped string, or <b>FALSE</b> on error.
+ * @return string The uncompressed and stripped string, or <b>FALSE</b> on error.
  */
 function gzgetss ($zp, $length, $allowable_tags = null) {}
 

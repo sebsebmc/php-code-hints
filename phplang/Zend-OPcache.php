@@ -1,6 +1,6 @@
 <?php
 
-// Start of Zend OPcache v.7.0.3-devFE
+// Start of Zend OPcache v.7.0.4-devFE
 
 /**
  * (PHP 5 &gt;= 5.5.0, PECL ZendOpcache &gt;= 7.0.0)<br/>
@@ -30,6 +30,23 @@ function opcache_invalidate ($script, boolean $force = '&false;') {}
 
 /**
  * (PHP 5 &gt;= 5.5.5, PECL ZendOpcache &gt; 7.0.2)<br/>
+ * Compiles and caches a PHP script without executing it
+ * @link http://php.net/manual/en/function.opcache-compile-file.php
+ * @param string $file <p>
+ * The path to the PHP script to be compiled.
+ * </p>
+ * @return boolean <b>TRUE</b> if <i>file</i> was compiled successfully
+ * or <b>FALSE</b> on failure.
+ */
+function opcache_compile_file ($file) {}
+
+/**
+ * @param $script
+ */
+function opcache_is_script_cached ($script) {}
+
+/**
+ * (PHP 5 &gt;= 5.5.5, PECL ZendOpcache &gt; 7.0.2)<br/>
  * Get configuration information about the cache
  * @link http://php.net/manual/en/function.opcache-get-configuration.php
  * @return array an array of information, including ini, blacklist and version
@@ -47,5 +64,5 @@ function opcache_get_configuration () {}
  */
 function opcache_get_status (boolean $get_scripts = '&true;') {}
 
-// End of Zend OPcache v.7.0.3-devFE
+// End of Zend OPcache v.7.0.4-devFE
 ?>

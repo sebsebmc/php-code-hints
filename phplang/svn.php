@@ -1,6 +1,6 @@
 <?php
 
-// Start of svn v.1.0.1
+// Start of svn v.1.0.2
 
 class Svn  {
 	const NON_RECURSIVE = 1;
@@ -1239,5 +1239,5 @@ define ('SVN_WC_SCHEDULE_ADD', 1);
 define ('SVN_WC_SCHEDULE_DELETE', 2);
 define ('SVN_WC_SCHEDULE_REPLACE', 3);
 
-// End of svn v.1.0.1
+// End of svn v.1.0.2
 ?>

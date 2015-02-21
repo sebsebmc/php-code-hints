@@ -228,7 +228,8 @@ function ftp_nlist ($ftp_stream, $directory) {}
  * @param bool $recursive [optional] <p>
  * If set to <b>TRUE</b>, the issued command will be LIST -R.
  * </p>
- * @return array an array where each element corresponds to one line of text.
+ * @return mixed an array where each element corresponds to one line of text. Returns
+ * <b>FALSE</b> when passed <i>directory</i> is invalid.
  * </p>
  * <p>
  * The output is not parsed in any way. The system type identifier returned by

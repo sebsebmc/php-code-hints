@@ -164,7 +164,7 @@ function imap_headers ($imap_stream) {}
  * date - The message date as found in its headers
  * Date - Same as date
  * subject - The message subject
- * Subject - Same a subject
+ * Subject - Same as subject
  * in_reply_to -
  * message_id -
  * newsgroups -

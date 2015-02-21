@@ -167,16 +167,6 @@ function mb_http_output ($encoding = 'mb_http_output()') {}
  * UCS2 and UCS4, encoding
  * detection will fail always.
  * </p>
- * <p>
- * Useless detect order example
- * <pre>
- * ; Always detect as ISO-8859-1
- * detect_order = ISO-8859-1, UTF-8
- * ; Always detect as UTF-8, since ASCII/UTF-7 values are
- * ; valid for UTF-8
- * detect_order = UTF-8, ASCII, UTF-7
- * </pre>
- * </p>
  * @return mixed <b>TRUE</b> on success or <b>FALSE</b> on failure.
  */
 function mb_detect_order ($encoding_list = 'mb_detect_order()') {}
@@ -997,7 +987,7 @@ function mb_regex_encoding ($encoding = 'mb_regex_encoding()') {}
  * Set/Get the default options for mbregex functions
  * @link http://php.net/manual/en/function.mb-regex-set-options.php
  * @param string $options [optional] <p>
- * The options to set. This is a a string where each
+ * The options to set. This is a string where each
  * character is an option. To set a mode, the mode
  * character must be the last one set, however there
  * can only be set one mode but multiple options.
